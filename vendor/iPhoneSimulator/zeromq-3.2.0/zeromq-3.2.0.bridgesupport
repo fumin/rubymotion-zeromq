@@ -1,360 +1,373 @@
 <?xml version='1.0'?>
 <signatures version='1.0'>
 <struct name='PollItem_' type='{_PollItem_=&quot;socket&quot;^v&quot;fd&quot;i&quot;events&quot;s&quot;revents&quot;s}'>
-<field name='socket' type='^v' declared_type='void*'/>
-<field name='fd' type='i' declared_type='int'/>
-<field name='events' type='s' declared_type='short'/>
-<field name='revents' type='s' declared_type='short'/>
+<field name='socket' declared_type='void*' type='^v'/>
+<field name='fd' declared_type='int' type='i'/>
+<field name='events' declared_type='short' type='s'/>
+<field name='revents' declared_type='short' type='s'/>
+</struct>
+<struct name='Zmq_msg_t' type='{_Zmq_msg_t=&quot;_&quot;[32C]}'>
+<field name='_' declared_type='unsigned char*' type='[32C]'/>
 </struct>
 <struct name='zmq_msg_t' type='{_zmq_msg_t=&quot;_&quot;[32C]}'>
-<field name='_' type='[32C]' declared_type='unsigned char*'/>
+<field name='_' declared_type='unsigned char*' type='[32C]'/>
 </struct>
 <struct name='zmq_pollitem_t' type='{_zmq_pollitem_t=&quot;socket&quot;^v&quot;fd&quot;i&quot;events&quot;s&quot;revents&quot;s}'>
-<field name='socket' type='^v' declared_type='void*'/>
-<field name='fd' type='i' declared_type='int'/>
-<field name='events' type='s' declared_type='short'/>
-<field name='revents' type='s' declared_type='short'/>
+<field name='socket' declared_type='void*' type='^v'/>
+<field name='fd' declared_type='int' type='i'/>
+<field name='events' declared_type='short' type='s'/>
+<field name='revents' declared_type='short' type='s'/>
 </struct>
-<enum name='EFSM' value='156384763'/>
-<enum name='EMTHREAD' value='156384766'/>
-<enum name='ENOCOMPATPROTO' value='156384764'/>
-<enum name='ETERM' value='156384765'/>
-<enum name='ZMQ_AFFINITY' value='4'/>
-<enum name='ZMQ_BACKLOG' value='19'/>
-<enum name='ZMQ_DEALER' value='5'/>
-<enum name='ZMQ_DONTWAIT' value='1'/>
-<enum name='ZMQ_EVENTS' value='15'/>
-<enum name='ZMQ_EVENT_ACCEPTED' value='32'/>
-<enum name='ZMQ_EVENT_ACCEPT_FAILED' value='64'/>
-<enum name='ZMQ_EVENT_BIND_FAILED' value='16'/>
-<enum name='ZMQ_EVENT_CLOSED' value='128'/>
-<enum name='ZMQ_EVENT_CLOSE_FAILED' value='256'/>
-<enum name='ZMQ_EVENT_CONNECTED' value='1'/>
-<enum name='ZMQ_EVENT_CONNECT_DELAYED' value='2'/>
-<enum name='ZMQ_EVENT_CONNECT_RETRIED' value='4'/>
-<enum name='ZMQ_EVENT_DISCONNECTED' value='512'/>
-<enum name='ZMQ_EVENT_LISTENING' value='8'/>
-<enum name='ZMQ_FAIL_UNROUTABLE' value='33'/>
-<enum name='ZMQ_FD' value='14'/>
-<enum name='ZMQ_FORWARDER' value='2'/>
-<enum name='ZMQ_HAUSNUMERO' value='156384712'/>
-<enum name='ZMQ_IDENTITY' value='5'/>
-<enum name='ZMQ_IO_THREADS' value='1'/>
-<enum name='ZMQ_IO_THREADS_DFLT' value='1'/>
-<enum name='ZMQ_IPV4ONLY' value='31'/>
-<enum name='ZMQ_LAST_ENDPOINT' value='32'/>
-<enum name='ZMQ_LINGER' value='17'/>
-<enum name='ZMQ_MAXMSGSIZE' value='22'/>
-<enum name='ZMQ_MAX_SOCKETS' value='2'/>
-<enum name='ZMQ_MAX_SOCKETS_DFLT' value='1024'/>
-<enum name='ZMQ_MORE' value='1'/>
-<enum name='ZMQ_MULTICAST_HOPS' value='25'/>
-<enum name='ZMQ_PAIR' value='0'/>
-<enum name='ZMQ_POLLERR' value='4'/>
-<enum name='ZMQ_POLLIN' value='1'/>
-<enum name='ZMQ_POLLOUT' value='2'/>
-<enum name='ZMQ_PUB' value='1'/>
-<enum name='ZMQ_PULL' value='7'/>
-<enum name='ZMQ_PUSH' value='8'/>
-<enum name='ZMQ_QUEUE' value='3'/>
-<enum name='ZMQ_RATE' value='8'/>
-<enum name='ZMQ_RCVBUF' value='12'/>
-<enum name='ZMQ_RCVHWM' value='24'/>
-<enum name='ZMQ_RCVMORE' value='13'/>
-<enum name='ZMQ_RCVTIMEO' value='27'/>
-<enum name='ZMQ_RECONNECT_IVL' value='18'/>
-<enum name='ZMQ_RECONNECT_IVL_MAX' value='21'/>
-<enum name='ZMQ_RECOVERY_IVL' value='9'/>
-<enum name='ZMQ_REP' value='4'/>
-<enum name='ZMQ_REQ' value='3'/>
-<enum name='ZMQ_ROUTER' value='6'/>
-<enum name='ZMQ_SNDBUF' value='11'/>
-<enum name='ZMQ_SNDHWM' value='23'/>
-<enum name='ZMQ_SNDMORE' value='2'/>
-<enum name='ZMQ_SNDTIMEO' value='28'/>
-<enum name='ZMQ_STREAMER' value='1'/>
-<enum name='ZMQ_SUB' value='2'/>
-<enum name='ZMQ_SUBSCRIBE' value='6'/>
-<enum name='ZMQ_TCP_ACCEPT_FILTER' value='38'/>
-<enum name='ZMQ_TCP_KEEPALIVE' value='34'/>
-<enum name='ZMQ_TCP_KEEPALIVE_CNT' value='35'/>
-<enum name='ZMQ_TCP_KEEPALIVE_IDLE' value='36'/>
-<enum name='ZMQ_TCP_KEEPALIVE_INTVL' value='37'/>
-<enum name='ZMQ_TYPE' value='16'/>
-<enum name='ZMQ_UNSUBSCRIBE' value='7'/>
-<enum name='ZMQ_VERSION' value='30200'/>
-<enum name='ZMQ_VERSION_MAJOR' value='3'/>
-<enum name='ZMQ_VERSION_MINOR' value='2'/>
-<enum name='ZMQ_VERSION_PATCH' value='0'/>
-<enum name='ZMQ_XPUB' value='9'/>
-<enum name='ZMQ_XREP' value='6'/>
-<enum name='ZMQ_XREQ' value='5'/>
-<enum name='ZMQ_XSUB' value='10'/>
+<enum value='156384763' name='EFSM'/>
+<enum value='156384766' name='EMTHREAD'/>
+<enum value='156384764' name='ENOCOMPATPROTO'/>
+<enum value='156384765' name='ETERM'/>
+<enum value='4' name='ZMQ_AFFINITY'/>
+<enum value='19' name='ZMQ_BACKLOG'/>
+<enum value='5' name='ZMQ_DEALER'/>
+<enum value='1' name='ZMQ_DONTWAIT'/>
+<enum value='15' name='ZMQ_EVENTS'/>
+<enum value='32' name='ZMQ_EVENT_ACCEPTED'/>
+<enum value='64' name='ZMQ_EVENT_ACCEPT_FAILED'/>
+<enum value='16' name='ZMQ_EVENT_BIND_FAILED'/>
+<enum value='128' name='ZMQ_EVENT_CLOSED'/>
+<enum value='256' name='ZMQ_EVENT_CLOSE_FAILED'/>
+<enum value='1' name='ZMQ_EVENT_CONNECTED'/>
+<enum value='2' name='ZMQ_EVENT_CONNECT_DELAYED'/>
+<enum value='4' name='ZMQ_EVENT_CONNECT_RETRIED'/>
+<enum value='512' name='ZMQ_EVENT_DISCONNECTED'/>
+<enum value='8' name='ZMQ_EVENT_LISTENING'/>
+<enum value='33' name='ZMQ_FAIL_UNROUTABLE'/>
+<enum value='14' name='ZMQ_FD'/>
+<enum value='2' name='ZMQ_FORWARDER'/>
+<enum value='156384712' name='ZMQ_HAUSNUMERO'/>
+<enum value='5' name='ZMQ_IDENTITY'/>
+<enum value='1' name='ZMQ_IO_THREADS'/>
+<enum value='1' name='ZMQ_IO_THREADS_DFLT'/>
+<enum value='31' name='ZMQ_IPV4ONLY'/>
+<enum value='32' name='ZMQ_LAST_ENDPOINT'/>
+<enum value='17' name='ZMQ_LINGER'/>
+<enum value='22' name='ZMQ_MAXMSGSIZE'/>
+<enum value='2' name='ZMQ_MAX_SOCKETS'/>
+<enum value='1024' name='ZMQ_MAX_SOCKETS_DFLT'/>
+<enum value='1' name='ZMQ_MORE'/>
+<enum value='25' name='ZMQ_MULTICAST_HOPS'/>
+<enum value='0' name='ZMQ_PAIR'/>
+<enum value='4' name='ZMQ_POLLERR'/>
+<enum value='1' name='ZMQ_POLLIN'/>
+<enum value='2' name='ZMQ_POLLOUT'/>
+<enum value='1' name='ZMQ_PUB'/>
+<enum value='7' name='ZMQ_PULL'/>
+<enum value='8' name='ZMQ_PUSH'/>
+<enum value='3' name='ZMQ_QUEUE'/>
+<enum value='8' name='ZMQ_RATE'/>
+<enum value='12' name='ZMQ_RCVBUF'/>
+<enum value='24' name='ZMQ_RCVHWM'/>
+<enum value='13' name='ZMQ_RCVMORE'/>
+<enum value='27' name='ZMQ_RCVTIMEO'/>
+<enum value='18' name='ZMQ_RECONNECT_IVL'/>
+<enum value='21' name='ZMQ_RECONNECT_IVL_MAX'/>
+<enum value='9' name='ZMQ_RECOVERY_IVL'/>
+<enum value='4' name='ZMQ_REP'/>
+<enum value='3' name='ZMQ_REQ'/>
+<enum value='6' name='ZMQ_ROUTER'/>
+<enum value='11' name='ZMQ_SNDBUF'/>
+<enum value='23' name='ZMQ_SNDHWM'/>
+<enum value='2' name='ZMQ_SNDMORE'/>
+<enum value='28' name='ZMQ_SNDTIMEO'/>
+<enum value='1' name='ZMQ_STREAMER'/>
+<enum value='2' name='ZMQ_SUB'/>
+<enum value='6' name='ZMQ_SUBSCRIBE'/>
+<enum value='38' name='ZMQ_TCP_ACCEPT_FILTER'/>
+<enum value='34' name='ZMQ_TCP_KEEPALIVE'/>
+<enum value='35' name='ZMQ_TCP_KEEPALIVE_CNT'/>
+<enum value='36' name='ZMQ_TCP_KEEPALIVE_IDLE'/>
+<enum value='37' name='ZMQ_TCP_KEEPALIVE_INTVL'/>
+<enum value='16' name='ZMQ_TYPE'/>
+<enum value='7' name='ZMQ_UNSUBSCRIBE'/>
+<enum value='30200' name='ZMQ_VERSION'/>
+<enum value='3' name='ZMQ_VERSION_MAJOR'/>
+<enum value='2' name='ZMQ_VERSION_MINOR'/>
+<enum value='0' name='ZMQ_VERSION_PATCH'/>
+<enum value='9' name='ZMQ_XPUB'/>
+<enum value='6' name='ZMQ_XREP'/>
+<enum value='5' name='ZMQ_XREQ'/>
+<enum value='10' name='ZMQ_XSUB'/>
 <function name='loklok'>
-<arg name='p' type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg name='p' declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='pollitem_damn'>
-<arg name='p' type='*' declared_type='char*' const='true'/>
-<arg name='bytes' type='i' declared_type='int'/>
-<retval type='{_PollItem_=^viss}' declared_type='PollItem_'/>
+<arg const='true' name='p' declared_type='char*' type='*'/>
+<arg name='bytes' declared_type='int' type='i'/>
+<retval declared_type='PollItem_' type='{_PollItem_=^viss}'/>
 </function>
 <function name='pollitem_pfd'>
-<arg name='p' type='*' declared_type='char*'/>
-<retval type='i' declared_type='int'/>
+<arg name='p' declared_type='char*' type='*'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='pollitem_ppp'>
-<arg name='p' type='*' declared_type='char*'/>
-<retval type='i' declared_type='int'/>
+<arg name='p' declared_type='char*' type='*'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='pollitem_sizeof'>
-<retval type='i' declared_type='int'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='size_t_sizeof'>
-<retval type='i' declared_type='int'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_bind'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='addr' type='*' declared_type='char*' const='true'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg const='true' name='addr' declared_type='char*' type='*'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_close'>
-<arg name='s' type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_connect'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='addr' type='*' declared_type='char*' const='true'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg const='true' name='addr' declared_type='char*' type='*'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_create_buffer'>
-<arg type='^v' declared_type='void*'/>
-<arg type='i' declared_type='int'/>
-<retval type='^v' declared_type='void*'/>
+<arg declared_type='void*' type='^v'/>
+<arg declared_type='int' type='i'/>
+<retval declared_type='void*' type='^v'/>
 </function>
 <function name='zmq_ctx_destroy'>
-<arg name='context' type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg name='context' declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_ctx_get'>
-<arg name='context' type='^v' declared_type='void*'/>
-<arg name='option' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='context' declared_type='void*' type='^v'/>
+<arg name='option' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_ctx_new'>
-<retval type='^v' declared_type='void*'/>
+<retval declared_type='void*' type='^v'/>
 </function>
 <function name='zmq_ctx_set'>
-<arg name='context' type='^v' declared_type='void*'/>
-<arg name='option' type='i' declared_type='int'/>
-<arg name='optval' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='context' declared_type='void*' type='^v'/>
+<arg name='option' declared_type='int' type='i'/>
+<arg name='optval' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_ctx_set_monitor'>
-<arg name='context' type='^v' declared_type='void*'/>
-<arg name='monitor' type='^?' declared_type='zmq_monitor_fn*' function_pointer='true'>
-<arg type='^v' declared_type='void*'/>
-<arg type='i' declared_type='int'/>
-<arg type='^(?={?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i})' declared_type='zmq_event_data_t*'/>
-<retval type='v' declared_type='void'/>
+<arg name='context' declared_type='void*' type='^v'/>
+<arg name='monitor' declared_type='zmq_monitor_fn*' type='^?' function_pointer='true'>
+<arg declared_type='void*' type='^v'/>
+<arg declared_type='int' type='i'/>
+<arg declared_type='zmq_event_data_t*' type='^(?={?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i}{?=*i})'/>
+<retval declared_type='void' type='v'/>
 </arg>
-<retval type='i' declared_type='int'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_device'>
-<arg name='device' type='i' declared_type='int'/>
-<arg name='insocket' type='^v' declared_type='void*'/>
-<arg name='outsocket' type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg name='device' declared_type='int' type='i'/>
+<arg name='insocket' declared_type='void*' type='^v'/>
+<arg name='outsocket' declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_disconnect'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='addr' type='*' declared_type='char*' const='true'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg const='true' name='addr' declared_type='char*' type='*'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_errno'>
-<retval type='i' declared_type='int'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_free'>
-<arg type='^v' declared_type='void*'/>
-<arg type='^v' declared_type='void*'/>
-<retval type='v' declared_type='void'/>
+<arg declared_type='void*' type='^v'/>
+<arg declared_type='void*' type='^v'/>
+<retval declared_type='void' type='v'/>
 </function>
 <function name='zmq_getsockopt'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='option' type='i' declared_type='int'/>
-<arg name='optval' type='^v' declared_type='void*'/>
-<arg name='optvallen' type='^I' declared_type='size_t*'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='option' declared_type='int' type='i'/>
+<arg name='optval' declared_type='void*' type='^v'/>
+<arg name='optvallen' declared_type='size_t*' type='^I'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_init'>
-<arg name='io_threads' type='i' declared_type='int'/>
-<retval type='^v' declared_type='void*'/>
+<arg name='io_threads' declared_type='int' type='i'/>
+<retval declared_type='void*' type='^v'/>
+</function>
+<function name='zmq_int_sendmsg'>
+<arg declared_type='int' type='i'/>
+<arg declared_type='int' type='i'/>
+<arg declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_close'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_copy'>
-<arg name='dest' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='src' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='i' declared_type='int'/>
+<arg name='dest' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='src' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_data'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='^v' declared_type='void*'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='void*' type='^v'/>
 </function>
 <function name='zmq_msg_get'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='option' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='option' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_init'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_init_data'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='data' type='^v' declared_type='void*'/>
-<arg name='size' type='L' declared_type='size_t'/>
-<arg name='ffn' type='^?' declared_type='zmq_free_fn*' function_pointer='true'>
-<arg type='^v' declared_type='void*'/>
-<arg type='^v' declared_type='void*'/>
-<retval type='v' declared_type='void'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='data' declared_type='void*' type='^v'/>
+<arg name='size' declared_type='size_t' type='L'/>
+<arg name='ffn' declared_type='zmq_free_fn*' type='^?' function_pointer='true'>
+<arg declared_type='void*' type='^v'/>
+<arg declared_type='void*' type='^v'/>
+<retval declared_type='void' type='v'/>
 </arg>
-<arg name='hint' type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg name='hint' declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_init_size'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='size' type='L' declared_type='size_t'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='size' declared_type='size_t' type='L'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_more'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_move'>
-<arg name='dest' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='src' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='i' declared_type='int'/>
+<arg name='dest' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='src' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_recv'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_send'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_set'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='option' type='i' declared_type='int'/>
-<arg name='optval' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='option' declared_type='int' type='i'/>
+<arg name='optval' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_msg_size'>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<retval type='L' declared_type='size_t'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<retval declared_type='size_t' type='L'/>
 </function>
 <function name='zmq_pointer_to_int'>
-<arg type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_poll'>
-<arg name='items' type='^{_zmq_pollitem_t=^viss}' declared_type='zmq_pollitem_t*'/>
-<arg name='nitems' type='i' declared_type='int'/>
-<arg name='timeout' type='l' declared_type='long'/>
-<retval type='i' declared_type='int'/>
+<arg name='items' declared_type='zmq_pollitem_t*' type='^{_zmq_pollitem_t=^viss}'/>
+<arg name='nitems' declared_type='int' type='i'/>
+<arg name='timeout' declared_type='long' type='l'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_pollitem_memcpy'>
-<arg type='^v' declared_type='void*'/>
-<arg type='{_PollItem_=^viss}' declared_type='PollItem_'/>
-<retval type='v' declared_type='void'/>
+<arg declared_type='void*' type='^v'/>
+<arg declared_type='PollItem_' type='{_PollItem_=^viss}'/>
+<retval declared_type='void' type='v'/>
 </function>
 <function name='zmq_recv'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='buf' type='^v' declared_type='void*'/>
-<arg name='len' type='L' declared_type='size_t'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='buf' declared_type='void*' type='^v'/>
+<arg name='len' declared_type='size_t' type='L'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_recviov'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='iov' type='^{iovec=}' declared_type='struct iovec*'/>
-<arg name='count' type='^I' declared_type='size_t*'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='iov' declared_type='struct iovec*' type='^{iovec=}'/>
+<arg name='count' declared_type='size_t*' type='^I'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_recvmsg'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_send'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='buf' type='^v' declared_type='void*' const='true'/>
-<arg name='len' type='L' declared_type='size_t'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg const='true' name='buf' declared_type='void*' type='^v'/>
+<arg name='len' declared_type='size_t' type='L'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_sendiov'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='iov' type='^{iovec=}' declared_type='struct iovec*'/>
-<arg name='count' type='L' declared_type='size_t'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='iov' declared_type='struct iovec*' type='^{iovec=}'/>
+<arg name='count' declared_type='size_t' type='L'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_sendmsg'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='msg' type='^{_zmq_msg_t=[32C]}' declared_type='zmq_msg_t*'/>
-<arg name='flags' type='i' declared_type='int'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='msg' declared_type='zmq_msg_t*' type='^{_zmq_msg_t=[32C]}'/>
+<arg name='flags' declared_type='int' type='i'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_setsockopt'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='option' type='i' declared_type='int'/>
-<arg name='optval' type='^v' declared_type='void*' const='true'/>
-<arg name='optvallen' type='L' declared_type='size_t'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg name='option' declared_type='int' type='i'/>
+<arg const='true' name='optval' declared_type='void*' type='^v'/>
+<arg name='optvallen' declared_type='size_t' type='L'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_sleep'>
-<arg name='seconds_' type='i' declared_type='int'/>
-<retval type='v' declared_type='void'/>
+<arg name='seconds_' declared_type='int' type='i'/>
+<retval declared_type='void' type='v'/>
 </function>
 <function name='zmq_socket'>
-<arg type='^v' declared_type='void*'/>
-<arg name='type' type='i' declared_type='int'/>
-<retval type='^v' declared_type='void*'/>
+<arg declared_type='void*' type='^v'/>
+<arg name='type' declared_type='int' type='i'/>
+<retval declared_type='void*' type='^v'/>
 </function>
 <function name='zmq_stopwatch_start'>
-<retval type='^v' declared_type='void*'/>
+<retval declared_type='void*' type='^v'/>
 </function>
 <function name='zmq_stopwatch_stop'>
-<arg name='watch_' type='^v' declared_type='void*'/>
-<retval type='L' declared_type='unsigned long'/>
+<arg name='watch_' declared_type='void*' type='^v'/>
+<retval declared_type='unsigned long' type='L'/>
 </function>
 <function name='zmq_strerror'>
-<arg name='errnum' type='i' declared_type='int'/>
-<retval type='*' declared_type='char*' const='true'/>
+<arg name='errnum' declared_type='int' type='i'/>
+<retval const='true' declared_type='char*' type='*'/>
 </function>
 <function name='zmq_term'>
-<arg name='context' type='^v' declared_type='void*'/>
-<retval type='i' declared_type='int'/>
+<arg name='context' declared_type='void*' type='^v'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_unbind'>
-<arg name='s' type='^v' declared_type='void*'/>
-<arg name='addr' type='*' declared_type='char*' const='true'/>
-<retval type='i' declared_type='int'/>
+<arg name='s' declared_type='void*' type='^v'/>
+<arg const='true' name='addr' declared_type='char*' type='*'/>
+<retval declared_type='int' type='i'/>
 </function>
 <function name='zmq_version'>
-<arg name='major' type='^i' declared_type='int*'/>
-<arg name='minor' type='^i' declared_type='int*'/>
-<arg name='patch' type='^i' declared_type='int*'/>
-<retval type='v' declared_type='void'/>
+<arg name='major' declared_type='int*' type='^i'/>
+<arg name='minor' declared_type='int*' type='^i'/>
+<arg name='patch' declared_type='int*' type='^i'/>
+<retval declared_type='void' type='v'/>
+</function>
+<function name='zmq_voidify'>
+<arg name='p' declared_type='void*' type='^v'/>
+<retval declared_type='void*' type='^v'/>
 </function>
 </signatures>

@@ -13,55 +13,79 @@ class TestViewController < UIViewController
     @connect = "tcp://localhost:5555"
     @retries = 3
     @timeout = 10
-    @ctx = ZMQ::Context.new
-    client_sock
-    @poller = ZMQ::Poller.new
-    @poller.register_readable @socket 
-    at_exit do
-      @socket.close
-    end
+ #   @ctx = ZMQ::Context.new
+     @ctx = zmq_ctx_new()
+     @socket = zmq_socket(@ctx, ZMQ::REQ)
+     zmq_connect(@socket, @connect)
+ #   client_sock
+ #   @poller = ZMQ::Poller.new
+ #   @poller.register_readable @socket 
+ #   at_exit do
+ #     @socket.close
+ #   end
   end
 
   def client_sock
-    @socket = @ctx.socket(ZMQ::REQ)
+  #  @socket = @ctx.socket(ZMQ::REQ)
 puts "in client_sock: before set, getsockopt LINGER = #{@socket.getsockopt(ZMQ::LINGER)}"
-    @socket.setsockopt(ZMQ::LINGER, 0)
+   # @socket.setsockopt(ZMQ::LINGER, 0)
 puts "in client_sock: after set, getsockopt LINGER = #{@socket.getsockopt(ZMQ::LINGER)}"
-    @socket.setsockopt(ZMQ::LINGER, -1)
-    rc = @socket.connect(@connect)
-    unless ZMQ::Util.resultcode_ok?(rc)
+ #   @socket.setsockopt(ZMQ::LINGER, -1)
+ #   rc = @socket.connect(@connect)
+  #  unless ZMQ::Util.resultcode_ok?(rc)
 puts "in client_sock error: #{ZMQ::Util.errno}, #{ZMQ::Util.error_string}"
-    else
+   # else
 puts "connect succeeded #{rc}"
-    end
+    #end
   end
 
   def joinChat
     sequence = 0
     retries_left = 3
     while retries_left > 0
-      request = "#{sequence}"
       sequence += 1
-      @socket.send_nsdata "#{sequence}".dataUsingEncoding(NSASCIIStringEncoding)
-puts "in JOIN socket addr: #{loklok(@socket.socket)}"
+      request = "#{sequence}"
+      nsdata = request.dataUsingEncoding(NSASCIIStringEncoding)
+      zmq_send(@socket, nsdata.bytes, nsdata.length, 0)
+    #  @socket.send_nsdata "#{sequence}".dataUsingEncoding(NSASCIIStringEncoding)
+#puts "in JOIN socket addr: #{loklok(@socket.socket)}"
       expect_reply = 1
       while expect_reply > 0
-        @poller.poll 2500 # 2.5 secs
-        if @poller.readables.size > 0
-          @poller.readables.each do |s|
-	    nsdata = s.recv_nsdata
-	    if nsdata.nil?
-	      break
-	    end
-	    reply = NSString.alloc.initWithData(nsdata, encoding:NSASCIIStringEncoding).to_i
-	    if reply == sequence
+         pi = PollItem_.new
+         pi.socket = @socket
+         pi.fd = 0
+         pi.events = ZMQ::POLLIN
+         nsdata = NSMutableData.alloc.init
+         nsdata.setLength(pollitem_sizeof())
+         zmq_pollitem_memcpy(nsdata.bytes, pi)
+         zmq_poll(nsdata.bytes, 1, 2500)
+    #    @poller.poll 2500 # 2.5 secs
+    #    if @poller.readables.size > 0
+    #      @poller.readables.each do |s|
+         pointer = Pointer.new(PollItem_.type)
+         nsdata.getBytes(pointer, range:[0, pollitem_sizeof()])
+         pi = pointer[0]
+         if (pi.revents & ZMQ::POLLIN) > 0
+            pointer = Pointer.new(Zmq_msg_t.type)
+            zmq_msg_init(zmq_voidify(pointer))
+            zmq_recvmsg(pi.socket, zmq_voidify(pointer), 0)
+            to_data = zmq_msg_data(zmq_voidify(pointer))
+            size = zmq_msg_size(zmq_voidify(pointer))
+            reply = NSData.dataWithBytes(to_data, length:size)
+            replyi = NSString.alloc.initWithData(reply, encoding:NSASCIIStringEncoding).to_i
+            if replyi == sequence
+#	    nsdata = s.recv_nsdata
+#	    if nsdata.nil?
+#	      break
+#	    end
+#	    reply = NSString.alloc.initWithData(nsdata, encoding:NSASCIIStringEncoding).to_i
+#	    if reply == sequence
 	      puts "I: server replied OK #{sequence}"
 	      retries_left = 3
               expect_reply = 0
 	    else
-	      puts "E: malformed reply from server: #{reply}"
+	      puts "E: malformed reply from server: #{replyi}, sequence = #{sequence}"
 	    end
-	  end
         else
           retries_left -= 1
           if retries_left == 0
@@ -69,17 +93,27 @@ puts "in JOIN socket addr: #{loklok(@socket.socket)}"
             break # we're stoping
           else
             puts "W: no response from server, retrying..."
-            @socket.close
-            @poller.delete @socket
-            puts "I: reconnecting to server..."
-            client_sock
-            @poller.register_readable @socket
-            @socket.send_nsdata "#{sequence}".dataUsingEncoding(NSASCIIStringEncoding)
-puts "in JOIN socket addr: #{loklok(@socket.socket)}"
+            zmq_close(@socket)
+            @socket = zmq_socket(@ctx, ZMQ::REQ)
+            zmq_connect(@socket, @connect)
+            request = "#{sequence}"
+            nsdata = request.dataUsingEncoding(NSASCIIStringEncoding)
+            zmq_send(@socket, nsdata.bytes, nsdata.length, 0)
           end
         end
       end
     end
+#            @socket.close
+#            @poller.delete @socket
+#            puts "I: reconnecting to server..."
+#            client_sock
+#            @poller.register_readable @socket
+#            @socket.send_nsdata "#{sequence}".dataUsingEncoding(NSASCIIStringEncoding)
+#puts "in JOIN socket addr: #{loklok(@socket.socket)}"
+#          end
+#        end
+#      end
+#    end
 
     # chat client approach
     #@online_session = OnlineSession.alloc.initWithHost:"nandalu.idv.tw", port:7777

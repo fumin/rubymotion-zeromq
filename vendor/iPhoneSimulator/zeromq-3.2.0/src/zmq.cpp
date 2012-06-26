@@ -107,6 +107,10 @@ void* zmq_create_buffer(void* src, int len) {
 void zmq_free(void* data, void* hint) {
   free(data);
 }
+int zmq_int_sendmsg(int sock, int message, int flags) {
+  return zmq_sendmsg((void*)sock, (zmq_msg_t*)message, flags);
+}
+void* zmq_voidify(void* p) {return (void*)p;}
 ///////below gabbage
 PollItem_ pollitem_damn(const char* p, int bytes) {
   PollItem_ a;

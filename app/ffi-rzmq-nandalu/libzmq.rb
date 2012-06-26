@@ -75,6 +75,9 @@ module ZMQ
     def zmq_pollitem_memcpy a, b # void* dest, PollItem_ pi
       return zmq_pollitem_memcpy a, b # void
     end
+    def self.voidify a
+      return voidify a
+    end
 
     def zmq_getsockopt a, b, c, d 
       # void* socket, int option_name, void* option_value, size_t* option_len

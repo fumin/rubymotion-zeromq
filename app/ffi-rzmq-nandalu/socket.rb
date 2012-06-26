@@ -35,7 +35,14 @@ module ZMQ
 
     
     def sendmsg message, flags = 0
-      rc = __sendmsg__(@socket, message.address, flags)
+puts "IN sendmsg, just before zmq_sendmsg, #{@socket}, #{message}, #{message.address}"
+so = zmq_pointer_to_int(@socket)
+me = zmq_pointer_to_int(message.address)
+sleep(5)
+      rc = zmq_int_sendmsg(so, me, flags)
+sleep(5)
+puts "IN sendmsg, right after znq_sendmsg"
+#       rc = __sendmsg__(@socket, message.address, flags)
       unless Util.resultcode_ok?(rc)
         puts "in Socket.sendmsg: #{Util.errno}, #{Util.error_string}"
       else
@@ -256,7 +263,11 @@ module ZMQ
 
     private
     def __sendmsg__ socket, address, flags
-      LibZMQ.zmq_sendmsg socket, address, flags
+puts "just before zmq_sendmsg #{socket}, #{address}, #{flags}"
+sleep(10)
+      rc = LibZMQ.zmq_sendmsg socket, address, flags
+puts "right after zmq_sendmsg"
+      rc
     end
     def __recvmsg__ socket, address, flags
       LibZMQ.zmq_recvmsg socket, address, flags

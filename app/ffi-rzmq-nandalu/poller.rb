@@ -63,9 +63,11 @@ puts "We got an error in zmq_poll: #{Util.errno}, #{Util.error_string}"
       true
     end
     def delete sock
+puts "before delete() @sockets = #{@sockets}"
+puts "before delete()1 @raw_to_sockets = #{}"
       item = @sockets.delete sock.object_id
       sock_deleted = @raw_to_socket.delete( zmq_pointer_to_int(sock.socket) )
-puts "delete() #{item}, #{@sockets}"
+puts "delete() #{item}, @sockets = #{@sockets}"
 puts "delete()1 #{sock_deleted}, #{@raw_to_socket}"
       item && sock_deleted
     end
@@ -85,7 +87,6 @@ puts "delete()1 #{sock_deleted}, #{@raw_to_socket}"
 
     private
     def prepare_items
-puts "in Poller.prepare_items #{@sockets.size}"
       @buffer.setLength(@sockets.size * LibZMQ::PollItem.sizeof)
       offset = 0
       #pointer = Pointer.new(LibZMQ::PollItem.type)
@@ -96,7 +97,6 @@ puts "in Poller.prepare_items #{@sockets.size}"
         #                            withBytes: pointer)
         offset += LibZMQ::PollItem.sizeof
       end
-puts "out Poller.prepare_items #{@buffer.length}"
     end
     def update_selectables
       @readables.clear
@@ -106,9 +106,6 @@ puts "out Poller.prepare_items #{@buffer.length}"
       @sockets.each_value do |unused|
         @buffer.getBytes(pointer, range:[offset, LibZMQ::PollItem.sizeof])
         pollitem = pointer[0]
-
-puts "IN HEREEEEEEEEE #{loklok(pollitem.socket)}, #{pollitem.fd}, #{pollitem.events}, #{pollitem.revents}, #{@raw_to_socket}"
-puts "@sockets = #{@sockets}"
 
         if pollitem.revents & ZMQ::POLLIN > 0
           @readables << (@raw_to_socket[zmq_pointer_to_int(pollitem.socket)] || pollitem.fd)
