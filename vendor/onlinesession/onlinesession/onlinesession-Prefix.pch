@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'onlinesession' target in the 'onlinesession' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

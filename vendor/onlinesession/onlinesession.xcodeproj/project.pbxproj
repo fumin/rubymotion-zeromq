@@ -1,0 +1,241 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		043C5C37158B3BF800C8CBE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043C5C36158B3BF800C8CBE1 /* Foundation.framework */; };
+		043C5C3D158B3BF800C8CBE1 /* onlinesession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C5C3C158B3BF800C8CBE1 /* onlinesession.m */; };
+		043C5C47158B433800C8CBE1 /* NSStream+QNetworkAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 043C5C45158B433800C8CBE1 /* NSStream+QNetworkAdditions.h */; };
+		043C5C48158B433800C8CBE1 /* NSStream+QNetworkAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C5C46158B433800C8CBE1 /* NSStream+QNetworkAdditions.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		043C5C33158B3BF800C8CBE1 /* libonlinesession.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libonlinesession.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		043C5C36158B3BF800C8CBE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		043C5C3A158B3BF800C8CBE1 /* onlinesession-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "onlinesession-Prefix.pch"; sourceTree = "<group>"; };
+		043C5C3B158B3BF800C8CBE1 /* onlinesession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = onlinesession.h; sourceTree = "<group>"; };
+		043C5C3C158B3BF800C8CBE1 /* onlinesession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = onlinesession.m; sourceTree = "<group>"; };
+		043C5C45158B433800C8CBE1 /* NSStream+QNetworkAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSStream+QNetworkAdditions.h"; sourceTree = "<group>"; };
+		043C5C46158B433800C8CBE1 /* NSStream+QNetworkAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSStream+QNetworkAdditions.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		043C5C30158B3BF800C8CBE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				043C5C37158B3BF800C8CBE1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		043C5C28158B3BF800C8CBE1 = {
+			isa = PBXGroup;
+			children = (
+				043C5C38158B3BF800C8CBE1 /* onlinesession */,
+				043C5C35158B3BF800C8CBE1 /* Frameworks */,
+				043C5C34158B3BF800C8CBE1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		043C5C34158B3BF800C8CBE1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				043C5C33158B3BF800C8CBE1 /* libonlinesession.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		043C5C35158B3BF800C8CBE1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				043C5C36158B3BF800C8CBE1 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		043C5C38158B3BF800C8CBE1 /* onlinesession */ = {
+			isa = PBXGroup;
+			children = (
+				043C5C3B158B3BF800C8CBE1 /* onlinesession.h */,
+				043C5C3C158B3BF800C8CBE1 /* onlinesession.m */,
+				043C5C45158B433800C8CBE1 /* NSStream+QNetworkAdditions.h */,
+				043C5C46158B433800C8CBE1 /* NSStream+QNetworkAdditions.m */,
+				043C5C39158B3BF800C8CBE1 /* Supporting Files */,
+			);
+			path = onlinesession;
+			sourceTree = "<group>";
+		};
+		043C5C39158B3BF800C8CBE1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				043C5C3A158B3BF800C8CBE1 /* onlinesession-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		043C5C31158B3BF800C8CBE1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				043C5C47158B433800C8CBE1 /* NSStream+QNetworkAdditions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		043C5C32158B3BF800C8CBE1 /* onlinesession */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 043C5C40158B3BF800C8CBE1 /* Build configuration list for PBXNativeTarget "onlinesession" */;
+			buildPhases = (
+				043C5C2F158B3BF800C8CBE1 /* Sources */,
+				043C5C30158B3BF800C8CBE1 /* Frameworks */,
+				043C5C31158B3BF800C8CBE1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = onlinesession;
+			productName = onlinesession;
+			productReference = 043C5C33158B3BF800C8CBE1 /* libonlinesession.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		043C5C2A158B3BF800C8CBE1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 043C5C2D158B3BF800C8CBE1 /* Build configuration list for PBXProject "onlinesession" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 043C5C28158B3BF800C8CBE1;
+			productRefGroup = 043C5C34158B3BF800C8CBE1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				043C5C32158B3BF800C8CBE1 /* onlinesession */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		043C5C2F158B3BF800C8CBE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				043C5C3D158B3BF800C8CBE1 /* onlinesession.m in Sources */,
+				043C5C48158B433800C8CBE1 /* NSStream+QNetworkAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		043C5C3E158B3BF800C8CBE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		043C5C3F158B3BF800C8CBE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		043C5C41158B3BF800C8CBE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/onlinesession.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "onlinesession/onlinesession-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		043C5C42158B3BF800C8CBE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/onlinesession.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "onlinesession/onlinesession-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		043C5C2D158B3BF800C8CBE1 /* Build configuration list for PBXProject "onlinesession" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				043C5C3E158B3BF800C8CBE1 /* Debug */,
+				043C5C3F158B3BF800C8CBE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		043C5C40158B3BF800C8CBE1 /* Build configuration list for PBXNativeTarget "onlinesession" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				043C5C41158B3BF800C8CBE1 /* Debug */,
+				043C5C42158B3BF800C8CBE1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 043C5C2A158B3BF800C8CBE1 /* Project object */;
+}

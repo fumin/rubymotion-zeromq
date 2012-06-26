@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<string_constant name='kOnlineSessionErrorDomain' nsstring='true' value='Online Session Domain'/>
+<enum name='kBufferSize' value='512'/>
+<enum name='kDataReadErrorCode' value='1001'/>
+<enum name='kFailedToSendDataErrorCode' value='1000'/>
+<class name='NSObject'>
+<method selector='onlineSession:encounteredReadError:'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<arg index='1' name='error' declared_type='NSError*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='onlineSession:encounteredWriteError:'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<arg index='1' name='error' declared_type='NSError*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='onlineSession:receivedData:'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<arg index='1' name='data' declared_type='NSData*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='onlineSessionDisconnected:'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<class name='NSStream'>
+<method class_method='true' selector='getStreamsToHostNamed:port:inputStream:outputStream:'>
+<arg index='0' name='hostName' declared_type='NSString*' type='@'/>
+<arg index='1' name='port' declared_type='NSInteger' type='i'/>
+<arg index='2' name='inputStreamPtr' declared_type='NSInputStream**' type_modifier='o' type='^@'/>
+<arg index='3' name='outputStreamPtr' declared_type='NSOutputStream**' type_modifier='o' type='^@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<class name='OnlineSession'>
+<method selector='delegate'>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='initWithHost:port:'>
+<arg index='0' name='host' declared_type='NSString*' type='@'/>
+<arg index='1' name='port' declared_type='NSInteger' type='i'/>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='sendData:'>
+<arg index='0' name='data' declared_type='NSData*' type='@'/>
+<retval declared_type='BOOL' type='B'/>
+</method>
+<method selector='setDelegate:'>
+<arg index='0' name='delegate' declared_type='id' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</class>
+<informal_protocol name='OnlineSessionDelegate'>
+<method selector='onlineSession:encounteredReadError:' type='v16@0:4@8@12'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<arg index='1' name='error' declared_type='NSError*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='onlineSession:encounteredWriteError:' type='v16@0:4@8@12'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<arg index='1' name='error' declared_type='NSError*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='onlineSession:receivedData:' type='v16@0:4@8@12'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<arg index='1' name='data' declared_type='NSData*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='onlineSessionDisconnected:' type='v12@0:4@8'>
+<arg index='0' name='session' declared_type='OnlineSession*' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+</informal_protocol>
+</signatures>
