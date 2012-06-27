@@ -16,7 +16,9 @@ class TestViewController < UIViewController
  #   @ctx = ZMQ::Context.new
      @ctx = zmq_ctx_new()
      @socket = zmq_socket(@ctx, ZMQ::REQ)
-     zmq_connect(@socket, @connect)
+@testsock = ZMQ::Socket.new(@socket)
+@testsock.connect(@connect)
+     #zmq_connect(@socket, @connect)
  #   client_sock
  #   @poller = ZMQ::Poller.new
  #   @poller.register_readable @socket 
@@ -46,19 +48,23 @@ puts "connect succeeded #{rc}"
       sequence += 1
       request = "#{sequence}"
       nsdata = request.dataUsingEncoding(NSASCIIStringEncoding)
-      zmq_send(@socket, nsdata.bytes, nsdata.length, 0)
+      #zmq_send(@socket, nsdata.bytes, nsdata.length, 0)
+      @testsock.send_str request
     #  @socket.send_nsdata "#{sequence}".dataUsingEncoding(NSASCIIStringEncoding)
 #puts "in JOIN socket addr: #{loklok(@socket.socket)}"
       expect_reply = 1
       while expect_reply > 0
          pi = PollItem_.new
-         pi.socket = @socket
+         pi.socket = @testsock.getsock
          pi.fd = 0
          pi.events = ZMQ::POLLIN
          nsdata = NSMutableData.alloc.init
          nsdata.setLength(pollitem_sizeof())
          zmq_pollitem_memcpy(nsdata.bytes, pi)
-         zmq_poll(nsdata.bytes, 1, 2500)
+         rc = zmq_poll(nsdata.bytes, 1, 2500)
+         if rc == -1
+           puts "oops... #{ZMQ::Util.errno}, #{ZMQ::Util.error_string}"
+         end
     #    @poller.poll 2500 # 2.5 secs
     #    if @poller.readables.size > 0
     #      @poller.readables.each do |s|
@@ -66,13 +72,14 @@ puts "connect succeeded #{rc}"
          nsdata.getBytes(pointer, range:[0, pollitem_sizeof()])
          pi = pointer[0]
          if (pi.revents & ZMQ::POLLIN) > 0
-            pointer = Pointer.new(Zmq_msg_t.type)
-            zmq_msg_init(zmq_voidify(pointer))
-            zmq_recvmsg(pi.socket, zmq_voidify(pointer), 0)
-            to_data = zmq_msg_data(zmq_voidify(pointer))
-            size = zmq_msg_size(zmq_voidify(pointer))
-            reply = NSData.dataWithBytes(to_data, length:size)
-            replyi = NSString.alloc.initWithData(reply, encoding:NSASCIIStringEncoding).to_i
+            #pointer = Pointer.new(Zmq_msg_t.type)
+            #zmq_msg_init(zmq_voidify(pointer))
+            #zmq_recvmsg(pi.socket, zmq_voidify(pointer), 0)
+            #to_data = zmq_msg_data(zmq_voidify(pointer))
+            #size = zmq_msg_size(zmq_voidify(pointer))
+            #reply = NSData.dataWithBytes(to_data, length:size)
+            #replyi = NSString.alloc.initWithData(reply, encoding:NSASCIIStringEncoding).to_i
+            replyi = @testsock.recv_str.to_i
             if replyi == sequence
 #	    nsdata = s.recv_nsdata
 #	    if nsdata.nil?
@@ -93,12 +100,15 @@ puts "connect succeeded #{rc}"
             break # we're stoping
           else
             puts "W: no response from server, retrying..."
-            zmq_close(@socket)
-            @socket = zmq_socket(@ctx, ZMQ::REQ)
-            zmq_connect(@socket, @connect)
-            request = "#{sequence}"
-            nsdata = request.dataUsingEncoding(NSASCIIStringEncoding)
-            zmq_send(@socket, nsdata.bytes, nsdata.length, 0)
+            #zmq_close(@socket)
+            #@socket = zmq_socket(@ctx, ZMQ::REQ)
+            #zmq_connect(@socket, @connect)
+            #request = "#{sequence}"
+            #nsdata = request.dataUsingEncoding(NSASCIIStringEncoding)
+            #zmq_send(@socket, nsdata.bytes, nsdata.length, 0)
+            @testsock = ZMQ::Socket.new(zmq_socket(@ctx, ZMQ::REQ))
+            @testsock.connect(@connect)
+            @testsock.send_str("#{sequence}")
           end
         end
       end
