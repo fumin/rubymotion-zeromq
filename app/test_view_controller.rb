@@ -14,15 +14,34 @@ class TestViewController < UIViewController
     @retries = 3
     @timeout = 10
     @ctx = zmq_ctx_new()
-    @socket = zmq_socket(@ctx, ZMQ::REQ)
-    @testsock = ZMQ::Socket.new(@socket)
-    @testsock.connect(@connect)
+    @server = ZMQ::Socket.new(zmq_socket(@ctx, ZMQ::REQ))
+    @server.connect(@connect)
+    @prng = Random.new
 
-    @poller = ZMQ::Poller.new
-    @poller.register(@testsock, ZMQ::POLLIN)
+    #@poller = ZMQ::Poller.new
+    #@poller.register(@testsock, ZMQ::POLLIN)
   end
 
   def joinChat
+    cycles = 0
+    while 1
+      request = @server.recv_str
+      cycles += 1;
+      if cycles > 3 && rand(120) == 0
+        puts "I: simulating a crash"
+        break
+      elsif cycles > 3 && rand(8) == 0
+        puts "I: simulating CPU overload"
+        sleep(2)
+      else
+        puts "I: normal request #{request}"
+        sleep(1)
+        @server.send_str request
+      end
+    end
+  end
+
+  def client_joinChat
     sequence = 0
     retries_left = 3
     while retries_left > 0

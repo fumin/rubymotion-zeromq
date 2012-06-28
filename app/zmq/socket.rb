@@ -4,9 +4,6 @@ module ZMQ
     def initialize sock
       @socket = sock
     end
-    def connect addr
-      zmq_connect @socket, addr
-    end
     def send_str strmsg, flags=0
       send_nsdata strmsg.dataUsingEncoding(NSUTF8StringEncoding), flags
     end
@@ -24,6 +21,12 @@ module ZMQ
     def recv_str flags=0
       NSString.alloc.initWithData(recv_nsdata(flags), 
         encoding:NSUTF8StringEncoding)
+    end
+    def bind addr
+      zmq_bind @socket, addr
+    end
+    def connect addr
+      zmq_connect @socket, addr
     end
     def close
       zmq_close @socket
