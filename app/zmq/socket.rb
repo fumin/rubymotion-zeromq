@@ -1,8 +1,6 @@
 module ZMQ
   class Socket
-    def getsock
-      @socket
-    end
+    attr_reader :socket
     def initialize sock
       @socket = sock
     end
@@ -16,7 +14,7 @@ module ZMQ
       zmq_send @socket, nsdata.bytes, nsdata.length, flags
     end
     def recv_nsdata flags=0
-      pointer = Pointer.new(Zmq_msg_t.type)
+      pointer = Pointer.new(Zmq_msg_t_.type)
       zmq_msg_init(zmq_voidify(pointer))
       zmq_recvmsg(@socket, zmq_voidify(pointer), flags)
       to_data = zmq_msg_data(zmq_voidify(pointer))
@@ -24,10 +22,14 @@ module ZMQ
       NSData.dataWithBytes(to_data, length:size)
     end
     def recv_str flags=0
-      NSString.alloc.initWithData(recv_nsdata(flags), encoding:NSUTF8StringEncoding)
+      NSString.alloc.initWithData(recv_nsdata(flags), 
+        encoding:NSUTF8StringEncoding)
     end
-    def dealloc
+    def close
       zmq_close @socket
     end
-  end
-end
+    def dealloc
+      close
+    end
+  end # class Socket
+end # module ZMQ

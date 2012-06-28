@@ -343,24 +343,14 @@ typedef struct
     short revents;
 } zmq_pollitem_t;
 
-typedef zmq_pollitem_t PollItem_; // for nandalu patch
-typedef size_t Size_t_;
-typedef zmq_msg_t Zmq_msg_t;
-ZMQ_EXPORT int pollitem_sizeof (); // for nandalu patch
-ZMQ_EXPORT int size_t_sizeof ();
-ZMQ_EXPORT int zmq_pointer_to_int (void*); // for nandalu
-ZMQ_EXPORT void zmq_pollitem_memcpy (void*, PollItem_); // for nandalu
-ZMQ_EXPORT void* zmq_create_buffer (void*, int); // fornanda
-ZMQ_EXPORT void zmq_free (void*, void*); //for nandalu
-ZMQ_EXPORT int zmq_int_sendmsg(int, int, int); // for nandalu
-ZMQ_EXPORT void* zmq_voidify(void* p);
-////////////////////// below gabbge
-ZMQ_EXPORT PollItem_ pollitem_damn(const char* p, int bytes); // nandalu patch
-ZMQ_EXPORT int pollitem_ppp(char* p); // nandalu patch
-ZMQ_EXPORT int pollitem_pfd(char* p); // ndanda
-ZMQ_EXPORT int loklok(void* p); // nandalu
-
 ZMQ_EXPORT int zmq_poll (zmq_pollitem_t *items, int nitems, long timeout);
+
+// Nandalu patch Start
+typedef zmq_msg_t Zmq_msg_t_;
+typedef zmq_pollitem_t PollItem_;
+ZMQ_EXPORT int pollitem_sizeof ();
+ZMQ_EXPORT void* zmq_voidify (void* p);
+// Nandalu patch End
 
 /******************************************************************************/
 /*  Devices - Experimental.                                                   */

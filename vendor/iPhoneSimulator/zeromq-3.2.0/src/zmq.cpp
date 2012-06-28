@@ -92,47 +92,10 @@ struct iovec {
 typedef char check_msg_t_size
     [sizeof (zmq::msg_t) ==  sizeof (zmq_msg_t) ? 1 : -1];
 
-////////////////////////////////////// NANDALUUUUUUUUU
+// Nandalu patch Start
 int pollitem_sizeof() {return sizeof(zmq_pollitem_t);}
-int size_t_sizeof() {return sizeof(size_t);}
-int zmq_pointer_to_int (void* p) {return (int)p;}
-void zmq_pollitem_memcpy(void* p, PollItem_ pollitem) {
-  memcpy(p, &pollitem, sizeof(PollItem_));
-}
-void* zmq_create_buffer(void* src, int len) {
-  void* dest = malloc(len);
-  memcpy(dest, src, len);
-  return dest;
-}
-void zmq_free(void* data, void* hint) {
-  free(data);
-}
-int zmq_int_sendmsg(int sock, int message, int flags) {
-  return zmq_sendmsg((void*)sock, (zmq_msg_t*)message, flags);
-}
-void* zmq_voidify(void* p) {return (void*)p;}
-///////below gabbage
-PollItem_ pollitem_damn(const char* p, int bytes) {
-  PollItem_ a;
-  PollItem_* pp = (PollItem_*)(p + bytes);
-  a.socket = pp->socket;
-  a.fd = pp->fd;
-  a.events = pp->events;
-  a.revents = pp->revents;
-  return a;
-}
-int pollitem_ppp(char* p) {
-  PollItem_* pointer_to_pollitem = (PollItem_*)p;
-  return (int)(pointer_to_pollitem->socket);
-}
-int pollitem_pfd(char* p) {
-  PollItem_* pointer_to_pollitem = (PollItem_*)p;
-  return pointer_to_pollitem->fd;
-}
-int loklok(void* p){
-  return (int)p;
-}
-//////////////////////////////////////////NANDALUUUUUUUUUUUUUUUUUUUUUU
+void* zmq_voidify (void* p) {return (void*)p;}
+// Nandalu patch End
 
 void zmq_version (int *major_, int *minor_, int *patch_)
 {
