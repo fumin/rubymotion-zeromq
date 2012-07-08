@@ -10,16 +10,47 @@ class TestViewController < UIViewController
         action:'joinChat'
     @photos = NSMutableArray.alloc.initWithCapacity(0)
 
-    @connect = "tcp://localhost:5555"
-    @retries = 3
-    @timeout = 10
-    @ctx = zmq_ctx_new()
-    @server = ZMQ::Socket.new(zmq_socket(@ctx, ZMQ::REQ))
-    @server.connect(@connect)
-    @prng = Random.new
-
+    #@connect = "tcp://localhost:5555"
+    #@retries = 3
+    #@timeout = 10
+    #@ctx = zmq_ctx_new()
+    #@server = ZMQ::Socket.new(zmq_socket(@ctx, ZMQ::REQ))
+    #@server.connect(@connect)
     #@poller = ZMQ::Poller.new
     #@poller.register(@testsock, ZMQ::POLLIN)
+
+    queue = Dispatch::Queue.concurrent(priority=:default)
+    queue.async{ dispatch_majordomo_worker }
+    #queue.async{ dispatch_majordomo_worker }
+
+    request_str = 'GET /books/ctutorial/Building-a-library.html HTTP/1.1
+Host: crasseux.com
+Connection: keep-alive
+Cache-Control: max-age=0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Referer: http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=7&ved=0CHEQFjAG&url=http%3A%2F%2Fcrasseux.com%2Fbooks%2Fctutorial%2FBuilding-a-library.html&ei=mxnvT8_-Fe3rmAWArPTVDQ&usg=AFQjCNGBkwLNmyDZNoQIBiAc3v7RLMU-Yw
+Accept-Encoding: gzip,deflate,sdch
+Accept-Language: en-US,en;q=0.8,zh-TW;q=0.6,zh;q=0.4
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3
+If-None-Match: "145c041-2377-4293ad0c"
+If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
+
+'
+  #httpparser = {}
+  #@parser = HTTP::HTTPParser.new
+  #@parser.execute httpparser, request_str, 0
+  #puts "@parser.finished? = #{@parser.finished?}, @parser.error? = #{@parser.error?}"
+  #puts httpparser
+  end
+
+  def dispatch_majordomo_worker
+    worker = Majordomo::Worker.new "tcp://geneva3.godfat.org:5555", "echo"
+    reply = nil
+    loop do
+      request = worker.recv reply
+      reply = request
+    end
   end
 
   def joinChat

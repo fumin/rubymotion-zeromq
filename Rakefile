@@ -10,8 +10,6 @@ Motion::Project::App.setup do |app|
       :products => ["libonlinesession.a"], :headers_dir => 'onlinesession')
   app.frameworks << 'AssetsLibrary' # for direct access of iOS photo library
 
-  #app.vendor_project('vendor/iPhoneSimulator/zeromq-3.2.0', :static,
-  #    products: ["build/lib/libzmq.a"], headers_dir: 'build/include')
   app.vendor_project('vendor/iPhoneSimulator/zeromq-3.2.0', :static,
        headers_dir: 'include')
 
