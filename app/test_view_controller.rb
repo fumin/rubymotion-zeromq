@@ -20,8 +20,7 @@ class TestViewController < UIViewController
     #@poller.register(@testsock, ZMQ::POLLIN)
 
     queue = Dispatch::Queue.concurrent(priority=:default)
-    queue.async{ dispatch_majordomo_worker }
-    #queue.async{ dispatch_majordomo_worker }
+    4.times{ |i| queue.async{dispatch_majordomo_worker} }
 
     request_str = 'GET /books/ctutorial/Building-a-library.html HTTP/1.1
 Host: crasseux.com

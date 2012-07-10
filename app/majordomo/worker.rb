@@ -15,12 +15,12 @@ module Majordomo
       zmq_ctx_destroy @ctx
     end
     def recv reply
-      send_to_broker(W_REPLY, nil, ["", @reply_to, reply]) if @reply_to && reply
+      send_to_broker(W_REPLY, nil, [@reply_to, "", reply]) if @reply_to && reply
       while true
         @poller.poll @heartbeat
         if @poller.readables.size == 1
           msg = @poller.readables[0].recvmsgs
-puts "I: received message #{msg.map{|m| m.description}}"
+puts "I: received message #{msg}"
           @liveness = HEARTBEAT_LIVENESS
           return unless msg.size >= 3 && msg[0] == "" && msg[1] == W_WORKER
           command = msg[2]
@@ -40,7 +40,7 @@ puts "W: disconnected from broker - retrying..."
           connect_to_broker
         end
         if Time.now.tv_sec * 1000 > @heartbeat_at
-          send_to_broker W_HEARTBEAT, nil, nil
+          send_to_broker W_HEARTBEAT, nil, []
           @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
         end
       end # while true
@@ -48,23 +48,16 @@ puts "W: disconnected from broker - retrying..."
 
     private
     def send_to_broker command, option, msg
-      nsdatas = if msg.is_a?(Array)
-                  msg.reverse
-                elsif msg.nil?
-                  []
-                else
-                  [msg]
-                end
-      nsdatas << option if option
-      nsdatas << command << W_WORKER << ""
-      @worker.sendmsgs nsdatas.reverse
+      msg.unshift(option) if option
+      msg.unshift(command).unshift(W_WORKER).unshift("")
+      @worker.sendmsgs msg
     end
     def connect_to_broker
       @worker.close if @worker
       @worker = ZMQ::Socket.new zmq_socket(@ctx, ZMQ::DEALER)
       @worker.connect @broker
 puts "I: connecting to broker at #{@broker}"
-      send_to_broker W_READY, @service, nil
+      send_to_broker W_READY, @service, []
       @liveness = HEARTBEAT_LIVENESS
       @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
     end
