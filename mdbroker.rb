@@ -88,8 +88,10 @@ puts "[DEBUG] delete_worker because Time.now > worker.expiry"
     @waiting.delete worker
     @workers.delete worker.address
 
-    worker.service.num_workers -= 1
-    @services.delete worker.service.name if worker.service.num_workers == 0
+    if worker.service
+      worker.service.num_workers -= 1
+      @services.delete worker.service.name if worker.service.num_workers == 0
+    end
   end
 
   def send_to_worker worker, command, option=nil, message=[]
@@ -153,7 +155,8 @@ puts "[DEBUG] delete_worker because MDP::REPLY not worker_exists"
       when MDP::W_READY
         service = message.shift
 
-        if worker_exists or service.start_with?(INTERNAL_SERVICE_PREFIX)
+        if worker_exists or (service.is_a?(String) &&
+                             service.start_with?(INTERNAL_SERVICE_PREFIX))
 puts "[DEBUG] delete_worker because MDP::W_READY not worker_exists or INTERNEL mmi service"
           delete_worker worker, true # not first command in session
         else

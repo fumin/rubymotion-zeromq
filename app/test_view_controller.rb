@@ -19,8 +19,13 @@ class TestViewController < UIViewController
     #@poller = ZMQ::Poller.new
     #@poller.register(@testsock, ZMQ::POLLIN)
 
-    queue = Dispatch::Queue.concurrent(priority=:default)
-    4.times{ |i| queue.async{dispatch_majordomo_worker} }
+    outerQueue = Dispatch::Queue.concurrent(priority=:default)
+    outerQueue.async do
+      service = get_service "fumin", "0000"
+puts "service = #{service}"
+      queue = Dispatch::Queue.concurrent(priority=:default)
+      4.times{ |i| queue.async{dispatch_majordomo_worker service} }
+    end
 
     request_str = 'GET /books/ctutorial/Building-a-library.html HTTP/1.1
 Host: crasseux.com
@@ -43,8 +48,16 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
   #puts httpparser
   end
 
-  def dispatch_majordomo_worker
-    worker = Majordomo::Worker.new "tcp://geneva3.godfat.org:5555", "echo"
+  def get_service user_name, password
+    host = "shop.nandalu.idv.tw"
+    theRequest = NSURLRequest.requestWithURL NSURL.URLWithString("http://#{host}/main/route_login?user_name=#{user_name}&password=#{password}")
+    requestError = Pointer.new(:object)
+    urlResponse = Pointer.new(:object)
+    (NSURLConnection.sendSynchronousRequest(theRequest, returningResponse:urlResponse, error:requestError) || "").to_str
+  end
+
+  def dispatch_majordomo_worker service
+    worker = Majordomo::Worker.new "tcp://geneva3.godfat.org:5555", service
     reply = nil
     loop do
       request = worker.recv reply
