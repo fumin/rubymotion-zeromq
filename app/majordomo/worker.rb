@@ -15,7 +15,7 @@ module Majordomo
       zmq_ctx_destroy @ctx
     end
     def recv reply
-      send_to_broker(W_REPLY, nil, [@reply_to, "", reply]) if @reply_to && reply
+      send_to_broker(W_REPLY, nil, reply.unshift("").unshift(@reply_to)) if @reply_to && reply
       while true
         @poller.poll @heartbeat
         if @poller.readables.size == 1
@@ -34,10 +34,14 @@ puts "I: received message #{msg}"
           else
 puts "E: invalid input message"
           end
-        elsif (@liveness -= 1) == 0
+        else
+          @liveness -= 1
+puts "@poller.readables nothing... @liveness == #{@liveness}"
+          if @liveness == 0
 puts "W: disconnected from broker - retrying..."
-          sleep @reconnect.to_f / 1000
-          connect_to_broker
+            sleep @reconnect.to_f / 1000
+            connect_to_broker
+          end
         end
         if Time.now.tv_sec * 1000 > @heartbeat_at
           send_to_broker W_HEARTBEAT, nil, []

@@ -24,7 +24,7 @@ class TestViewController < UIViewController
       service = get_service "fumin", "0000"
 puts "service = #{service}"
       queue = Dispatch::Queue.concurrent(priority=:default)
-      4.times{ |i| queue.async{dispatch_majordomo_worker service} }
+      1.times{ |i| queue.async{dispatch_majordomo_worker service} }
     end
 
     request_str = 'GET /books/ctutorial/Building-a-library.html HTTP/1.1
@@ -50,6 +50,7 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
 
   def get_service user_name, password
     host = "shop.nandalu.idv.tw"
+    #host = "localhost:3000"
     theRequest = NSURLRequest.requestWithURL NSURL.URLWithString("http://#{host}/main/route_login?user_name=#{user_name}&password=#{password}")
     requestError = Pointer.new(:object)
     urlResponse = Pointer.new(:object)
@@ -60,8 +61,9 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
     worker = Majordomo::Worker.new "tcp://geneva3.godfat.org:5555", service
     reply = nil
     loop do
-      request = worker.recv reply
-      reply = request
+      request = worker.recv [reply]
+      cnatra = Cnatra.new
+      reply = cnatra.handle_request(request)
     end
   end
 
