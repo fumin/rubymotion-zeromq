@@ -11,6 +11,7 @@ Motion::Project::App.setup do |app|
   app.frameworks << 'AssetsLibrary' # for direct access of iOS photo library
 
   app.vendor_project('vendor/zeromq-3.2.0', :static, headers_dir: 'include')
+  app.vendor_project('vendor/zlib-1.2.7', :static, headers_dir: 'include')
 
 
   app.codesign_certificate = 'iPhone Developer: 富民 王 (V6H97ZSMXU)'

@@ -7,12 +7,23 @@ module Majordomo
       @heartbeat = 2500 # msecs
       @reconnect = 2500 # msecs
       @reply_to = nil
-      connect_to_broker
       @poller = ZMQ::Poller.new
-      @poller.register @worker, ZMQ::POLLIN
+      connect_to_broker
     end
     def dealloc
       zmq_ctx_destroy @ctx
+    end
+    def streamed_recv reply
+      # reply ~ [[200, "Content-Length", "300", "Content-Type", "image/png", ...], 
+      #          body[0], body[1], ...]
+      return recv(nil) if reply.nil?
+      send_to_broker(W_REPLY, nil, [@reply_to, ""].concat(reply[0]) << "more")
+      reply[1..-2].each do |r|
+        send_to_broker(W_REPLY, nil, [@reply_to, "", r, "more"])
+        # this is important, because we want to let our broker know that we're alive
+        send_to_broker(W_HEARTBEAT, nil, [])
+      end
+      recv [reply[-1]]
     end
     def recv reply
       send_to_broker(W_REPLY, nil, reply.unshift("").unshift(@reply_to)) if @reply_to && reply
@@ -36,14 +47,16 @@ puts "E: invalid input message"
           end
         else
           @liveness -= 1
-puts "@poller.readables nothing... @liveness == #{@liveness}"
+puts "[DEBUG] @liveness - 1, @liveness = #{@liveness}, #{Time.now.strftime("%T")}"
           if @liveness == 0
 puts "W: disconnected from broker - retrying..."
             sleep @reconnect.to_f / 1000
             connect_to_broker
           end
         end
+puts "[DEBUG] Time.now = #{Time.now.strftime("%T")}, @heartbeat_at = #{@heartbeat_at}"
         if Time.now.tv_sec * 1000 > @heartbeat_at
+puts "[INFO] send_to_broker W_HEARTBEAT ^^ #{Time.now.strftime("%T")}"
           send_to_broker W_HEARTBEAT, nil, []
           @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
         end
@@ -54,17 +67,19 @@ puts "W: disconnected from broker - retrying..."
     def send_to_broker command, option, msg
       msg.unshift(option) if option
       msg.unshift(command).unshift(W_WORKER).unshift("")
-      @worker.sendmsgs msg
+      @worker.sendmsgs msg, 0
     end
     def connect_to_broker
+      @poller.delete @worker
       @worker.close if @worker
       @worker = ZMQ::Socket.new zmq_socket(@ctx, ZMQ::DEALER)
       @worker.connect @broker
 puts "I: connecting to broker at #{@broker}"
+      @poller.register @worker, ZMQ::POLLIN
       send_to_broker W_READY, @service, []
       @liveness = HEARTBEAT_LIVENESS
       @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
     end
-    HEARTBEAT_LIVENESS = 3 # 3-5 is reasonable
+    HEARTBEAT_LIVENESS = 10 # 3-5 is reasonable
   end # class Worker
 end # module Majordomo

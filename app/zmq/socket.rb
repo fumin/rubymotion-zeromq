@@ -5,7 +5,12 @@ module ZMQ
       @socket = sock
     end
     def send msg, flags=0
-      zmq_send @socket, msg.to_data.bytes, msg.size, flags
+      p, size = if msg.is_a?(NSData)
+                  [msg.bytes, msg.length]
+                else
+                  [msg.to_data.bytes, msg.size]
+                end
+      zmq_send @socket, p, size, flags
     end
     def sendmsgs msgs, flags=0
       flags = NonBlocking if dontwait?(flags)

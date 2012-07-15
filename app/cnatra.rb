@@ -5,9 +5,10 @@ class Cnatra
   def handle_request request
     m = %r{^/images/(\d+)}.match(request)
     if m
-      get_photos([m[1]])[0].to_str
+      photo = get_photos([m[1]])[0]
+      ["200", ["Content-Length", "#{photo.length}"], photo]
     else
-      "404"
+      ["404", [], ""]
     end
   end
 

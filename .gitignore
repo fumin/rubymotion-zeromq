@@ -3,7 +3,5 @@ build
 resources/*.nib
 resources/*.momd
 resources/*.storyboardc
-vendor/zeromq-3.2.0/build-iPhoneSimulator/*
-vendor/zeromq-3.2.0/build-iPhoneOS/*
-vendor/onlinesession/build-iPhoneSimulator/*
-vendor/onlinesession/build-iPhoneOS/*
+vendor/*/build-iPhoneSimulator/*
+vendor/*/build-iPhoneOS/*

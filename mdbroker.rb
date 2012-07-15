@@ -9,7 +9,7 @@ require './mdp.rb'
 
 class MajorDomoBroker
   HEARTBEAT_INTERVAL = 2500
-  HEARTBEAT_LIVENESS = 3 # 3-5 is reasonable
+  HEARTBEAT_LIVENESS = 10 # 3-5 is reasonable
   HEARTBEAT_EXPIRY = HEARTBEAT_INTERVAL * HEARTBEAT_LIVENESS
   INTERNAL_SERVICE_PREFIX = 'mmi.'
 
@@ -23,6 +23,8 @@ class MajorDomoBroker
     @services = {}
     @waiting = []
     @heartbeat_at = Time.now + 0.001 * HEARTBEAT_INTERVAL
+
+    @need_to_heartbeat_workers = []
   end
 
   def bind endpoint
@@ -61,9 +63,9 @@ class MajorDomoBroker
       if Time.now > @heartbeat_at
         # purge waiting expired workers
         # send heartbeats to the non expired workers
-        @waiting.each do |worker|
+        (@waiting | @need_to_heartbeat_workers).each do |worker|
           if Time.now > worker.expiry
-puts "[DEBUG] delete_worker because Time.now > worker.expiry"
+puts "[DEBUG] delete_worker because Time.now #{Time.now.strftime("%T")} > worker.expiry #{worker.expiry}"
             delete_worker worker
           else
             send_to_worker worker, MDP::W_HEARTBEAT
@@ -72,7 +74,7 @@ puts "[DEBUG] delete_worker because Time.now > worker.expiry"
 
         puts "workers: #{@workers.count}"
         @services.each do |service, object|
-          puts "service: #{service}: requests: #{object.requests.count} waiting: #{object.waiting.count} num_workers: #{object.num_workers}"
+          puts "service: #{service}: requests: #{object.requests.count} waiting: #{object.waiting.count} num_workers: #{object.num_workers} #{Time.now.strftime("%T")}"
         end
         @heartbeat_at = Time.now + 0.001 * HEARTBEAT_INTERVAL
       end
@@ -85,6 +87,7 @@ puts "[DEBUG] delete_worker because Time.now > worker.expiry"
     send_to_worker(worker, MDP::W_DISCONNECT) if disconnect
 
     worker.service.waiting.delete(worker) if worker.service
+    @need_to_heartbeat_workers.delete worker
     @waiting.delete worker
     @workers.delete worker.address
 
@@ -145,18 +148,20 @@ puts "[DEBUG] delete_worker because Time.now > worker.expiry"
           # protocol header and service name, then rewrap envelope.
           client = message.shift
           message.shift # empty
+          reply_body = message # here then is the reply body
+puts "[INFO] reply_body[0].size = #{reply_body[0].size}"
           message = [client, '', MDP::C_CLIENT, worker.service.name].concat(message)
           @socket.send_strings message
-          worker_waiting worker
+          worker_waiting worker if reply_body.size == 1 # reply_body normally'd be [payload, "more"]
         else
 puts "[DEBUG] delete_worker because MDP::REPLY not worker_exists"
           delete_worker worker, true
         end
       when MDP::W_READY
         service = message.shift
+        return unless service.respond_to?(:start_with?)
 
-        if worker_exists or (service.is_a?(String) &&
-                             service.start_with?(INTERNAL_SERVICE_PREFIX))
+        if worker_exists or service.start_with?(INTERNAL_SERVICE_PREFIX)
 puts "[DEBUG] delete_worker because MDP::W_READY not worker_exists or INTERNEL mmi service"
           delete_worker worker, true # not first command in session
         else
@@ -186,6 +191,9 @@ puts "[DEBUG] delete_worker because MDP::W_DISCONNECT"
       message = service.requests.shift
       worker = service.waiting.shift
       @waiting.delete worker
+
+      @need_to_heartbeat_workers << worker
+
       send_to_worker worker, MDP::W_REQUEST, nil, message
     end
   end

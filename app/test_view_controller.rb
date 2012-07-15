@@ -49,9 +49,9 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
   end
 
   def get_service user_name, password
-    host = "shop.nandalu.idv.tw"
-    #host = "localhost:3000"
-    theRequest = NSURLRequest.requestWithURL NSURL.URLWithString("http://#{host}/main/route_login?user_name=#{user_name}&password=#{password}")
+    host = "afternoon-fog-1338.herokuapp.com"
+    #host = "localhost:9292"
+    theRequest = NSURLRequest.requestWithURL NSURL.URLWithString("http://#{host}/route_login?user_name=#{user_name}&password=#{password}")
     requestError = Pointer.new(:object)
     urlResponse = Pointer.new(:object)
     (NSURLConnection.sendSynchronousRequest(theRequest, returningResponse:urlResponse, error:requestError) || "").to_str
@@ -61,10 +61,39 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
     worker = Majordomo::Worker.new "tcp://geneva3.godfat.org:5555", service
     reply = nil
     loop do
-      request = worker.recv [reply]
-      cnatra = Cnatra.new
-      reply = cnatra.handle_request(request)
+      request = worker.streamed_recv reply
+      code, headers, body = Cnatra.new.handle_request(request)
+      reply = [[code].concat(headers)].concat( chunk(body, 200 * 1000) ) 
+              # split into chunks of 100k
+puts "[DEBUG] in loop: reply.size = #{reply.size}"
     end
+  end
+
+  def chunk(myBlob, chunkSize)
+    return [""] if myBlob.length == 0
+    retval = []
+    length = myBlob.length
+    offset = 0
+    while offset < length
+      thisChunkSize = length - offset > chunkSize ? chunkSize : length - offset;
+      chunk = NSData.dataWithBytesNoCopy myBlob.bytes + offset,
+                                         length:thisChunkSize,
+                                         freeWhenDone: false
+      offset += thisChunkSize
+      # do something with chunk
+      retval << zlib_deflate(chunk)
+      #retval << chunk
+    end
+    retval
+  end
+
+  def zlib_deflate nsdata
+    out_data = NSMutableData.alloc.initWithLength(nsdata.length)
+    ret = zcompress(nsdata.bytes, nsdata.length, out_data.bytes, out_data.length)
+    return ret if ret < 0
+    out_data.setLength(ret)
+puts "[DEBUG] zlib_deflate: out_data.length = #{out_data.length} #{Time.now.strftime("%T")}"
+    out_data
   end
 
   def joinChat

@@ -1,0 +1,800 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<struct type='{_code=&quot;op&quot;C&quot;bits&quot;C&quot;val&quot;S}' name='code'>
+<field type='C' name='op' declared_type='unsigned char'/>
+<field type='C' name='bits' declared_type='unsigned char'/>
+<field type='S' name='val' declared_type='unsigned short'/>
+</struct>
+<struct type='{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}' name='ct_data'>
+<field type='(?=&quot;freq&quot;S&quot;code&quot;S)' name='fc' declared_type='union ct_data_s::'/>
+<field type='(?=&quot;dad&quot;S&quot;len&quot;S)' name='dl' declared_type='union ct_data_s::'/>
+</struct>
+<struct type='{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}' name='ct_data_s'>
+<field type='(?=&quot;freq&quot;S&quot;code&quot;S)' name='fc' declared_type='union ct_data_s::'/>
+<field type='(?=&quot;dad&quot;S&quot;len&quot;S)' name='dl' declared_type='union ct_data_s::'/>
+</struct>
+<struct type='{internal_state=&quot;strm&quot;^{z_stream_s}&quot;status&quot;i&quot;pending_buf&quot;*&quot;pending_buf_size&quot;I&quot;pending_out&quot;*&quot;pending&quot;I&quot;wrap&quot;i&quot;gzhead&quot;^{gz_header_s}&quot;gzindex&quot;I&quot;method&quot;C&quot;last_flush&quot;i&quot;w_size&quot;I&quot;w_bits&quot;I&quot;w_mask&quot;I&quot;window&quot;*&quot;window_size&quot;I&quot;prev&quot;^S&quot;head&quot;^S&quot;ins_h&quot;I&quot;hash_size&quot;I&quot;hash_bits&quot;I&quot;hash_mask&quot;I&quot;hash_shift&quot;I&quot;block_start&quot;l&quot;match_length&quot;I&quot;prev_match&quot;I&quot;match_available&quot;i&quot;strstart&quot;I&quot;match_start&quot;I&quot;lookahead&quot;I&quot;prev_length&quot;I&quot;max_chain_length&quot;I&quot;max_lazy_match&quot;I&quot;level&quot;i&quot;strategy&quot;i&quot;good_match&quot;I&quot;nice_match&quot;i&quot;dyn_ltree&quot;[573{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]&quot;dyn_dtree&quot;[61{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]&quot;bl_tree&quot;[39{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]&quot;l_desc&quot;{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}&quot;d_desc&quot;{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}&quot;bl_desc&quot;{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}&quot;bl_count&quot;[16S]&quot;heap&quot;[573i]&quot;heap_len&quot;i&quot;heap_max&quot;i&quot;depth&quot;[573C]&quot;l_buf&quot;*&quot;lit_bufsize&quot;I&quot;last_lit&quot;I&quot;d_buf&quot;^S&quot;opt_len&quot;I&quot;static_len&quot;I&quot;matches&quot;I&quot;insert&quot;I&quot;bi_buf&quot;S&quot;bi_valid&quot;i&quot;high_water&quot;I}' name='deflate_state'>
+<field type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<field type='i' name='status' declared_type='int'/>
+<field type='*' name='pending_buf' declared_type='Bytef*'/>
+<field type='L' name='pending_buf_size' declared_type='ulg'/>
+<field type='*' name='pending_out' declared_type='Bytef*'/>
+<field type='I' name='pending' declared_type='uInt'/>
+<field type='i' name='wrap' declared_type='int'/>
+<field type='^{gz_header_s=iIii*II*I*Iii}' name='gzhead' declared_type='gz_headerp'/>
+<field type='I' name='gzindex' declared_type='uInt'/>
+<field type='C' name='method' declared_type='Byte'/>
+<field type='i' name='last_flush' declared_type='int'/>
+<field type='I' name='w_size' declared_type='uInt'/>
+<field type='I' name='w_bits' declared_type='uInt'/>
+<field type='I' name='w_mask' declared_type='uInt'/>
+<field type='*' name='window' declared_type='Bytef*'/>
+<field type='L' name='window_size' declared_type='ulg'/>
+<field type='^S' name='prev' declared_type='Posf*'/>
+<field type='^S' name='head' declared_type='Posf*'/>
+<field type='I' name='ins_h' declared_type='uInt'/>
+<field type='I' name='hash_size' declared_type='uInt'/>
+<field type='I' name='hash_bits' declared_type='uInt'/>
+<field type='I' name='hash_mask' declared_type='uInt'/>
+<field type='I' name='hash_shift' declared_type='uInt'/>
+<field type='l' name='block_start' declared_type='long'/>
+<field type='I' name='match_length' declared_type='uInt'/>
+<field type='I' name='prev_match' declared_type='IPos'/>
+<field type='i' name='match_available' declared_type='int'/>
+<field type='I' name='strstart' declared_type='uInt'/>
+<field type='I' name='match_start' declared_type='uInt'/>
+<field type='I' name='lookahead' declared_type='uInt'/>
+<field type='I' name='prev_length' declared_type='uInt'/>
+<field type='I' name='max_chain_length' declared_type='uInt'/>
+<field type='I' name='max_lazy_match' declared_type='uInt'/>
+<field type='i' name='level' declared_type='int'/>
+<field type='i' name='strategy' declared_type='int'/>
+<field type='I' name='good_match' declared_type='uInt'/>
+<field type='i' name='nice_match' declared_type='int'/>
+<field type='[573{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]' name='dyn_ltree' declared_type='struct ct_data_s*'/>
+<field type='[61{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]' name='dyn_dtree' declared_type='struct ct_data_s*'/>
+<field type='[39{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]' name='bl_tree' declared_type='struct ct_data_s*'/>
+<field type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='l_desc' declared_type='struct tree_desc_s'/>
+<field type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='d_desc' declared_type='struct tree_desc_s'/>
+<field type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='bl_desc' declared_type='struct tree_desc_s'/>
+<field type='[16S]' name='bl_count' declared_type='ush*'/>
+<field type='[573i]' name='heap' declared_type='int*'/>
+<field type='i' name='heap_len' declared_type='int'/>
+<field type='i' name='heap_max' declared_type='int'/>
+<field type='[573C]' name='depth' declared_type='uch*'/>
+<field type='*' name='l_buf' declared_type='uchf*'/>
+<field type='I' name='lit_bufsize' declared_type='uInt'/>
+<field type='I' name='last_lit' declared_type='uInt'/>
+<field type='^S' name='d_buf' declared_type='ushf*'/>
+<field type='L' name='opt_len' declared_type='ulg'/>
+<field type='L' name='static_len' declared_type='ulg'/>
+<field type='I' name='matches' declared_type='uInt'/>
+<field type='I' name='insert' declared_type='uInt'/>
+<field type='S' name='bi_buf' declared_type='ush'/>
+<field type='i' name='bi_valid' declared_type='int'/>
+<field type='L' name='high_water' declared_type='ulg'/>
+</struct>
+<struct type='{gzFile_s=&quot;have&quot;I&quot;next&quot;*&quot;pos&quot;l}' name='gzFile'>
+<field type='I' name='have' declared_type='unsigned int'/>
+<field type='*' name='next' declared_type='unsigned char*'/>
+<field type='l' name='pos' declared_type='long'/>
+</struct>
+<struct type='{gzFile_s=&quot;have&quot;I&quot;next&quot;*&quot;pos&quot;l}' name='gzFile_s'>
+<field type='I' name='have' declared_type='unsigned int'/>
+<field type='*' name='next' declared_type='unsigned char*'/>
+<field type='l' name='pos' declared_type='long'/>
+</struct>
+<struct type='{gz_header_s=&quot;text&quot;i&quot;time&quot;I&quot;xflags&quot;i&quot;os&quot;i&quot;extra&quot;*&quot;extra_len&quot;I&quot;extra_max&quot;I&quot;name&quot;*&quot;name_max&quot;I&quot;comment&quot;*&quot;comm_max&quot;I&quot;hcrc&quot;i&quot;done&quot;i}' name='gz_header'>
+<field type='i' name='text' declared_type='int'/>
+<field type='L' name='time' declared_type='uLong'/>
+<field type='i' name='xflags' declared_type='int'/>
+<field type='i' name='os' declared_type='int'/>
+<field type='*' name='extra' declared_type='Bytef*'/>
+<field type='I' name='extra_len' declared_type='uInt'/>
+<field type='I' name='extra_max' declared_type='uInt'/>
+<field type='*' name='name' declared_type='Bytef*'/>
+<field type='I' name='name_max' declared_type='uInt'/>
+<field type='*' name='comment' declared_type='Bytef*'/>
+<field type='I' name='comm_max' declared_type='uInt'/>
+<field type='i' name='hcrc' declared_type='int'/>
+<field type='i' name='done' declared_type='int'/>
+</struct>
+<struct type='{gz_header_s=&quot;text&quot;i&quot;time&quot;I&quot;xflags&quot;i&quot;os&quot;i&quot;extra&quot;*&quot;extra_len&quot;I&quot;extra_max&quot;I&quot;name&quot;*&quot;name_max&quot;I&quot;comment&quot;*&quot;comm_max&quot;I&quot;hcrc&quot;i&quot;done&quot;i}' name='gz_header_s'>
+<field type='i' name='text' declared_type='int'/>
+<field type='L' name='time' declared_type='uLong'/>
+<field type='i' name='xflags' declared_type='int'/>
+<field type='i' name='os' declared_type='int'/>
+<field type='*' name='extra' declared_type='Bytef*'/>
+<field type='I' name='extra_len' declared_type='uInt'/>
+<field type='I' name='extra_max' declared_type='uInt'/>
+<field type='*' name='name' declared_type='Bytef*'/>
+<field type='I' name='name_max' declared_type='uInt'/>
+<field type='*' name='comment' declared_type='Bytef*'/>
+<field type='I' name='comm_max' declared_type='uInt'/>
+<field type='i' name='hcrc' declared_type='int'/>
+<field type='i' name='done' declared_type='int'/>
+</struct>
+<struct type='{_gz_state=&quot;x&quot;{gzFile_s=&quot;have&quot;I&quot;next&quot;*&quot;pos&quot;l}&quot;mode&quot;i&quot;fd&quot;i&quot;path&quot;*&quot;size&quot;I&quot;want&quot;I&quot;in&quot;*&quot;out&quot;*&quot;direct&quot;i&quot;how&quot;i&quot;start&quot;l&quot;eof&quot;i&quot;past&quot;i&quot;level&quot;i&quot;strategy&quot;i&quot;skip&quot;l&quot;seek&quot;i&quot;err&quot;i&quot;msg&quot;*&quot;strm&quot;{z_stream_s=&quot;next_in&quot;*&quot;avail_in&quot;I&quot;total_in&quot;I&quot;next_out&quot;*&quot;avail_out&quot;I&quot;total_out&quot;I&quot;msg&quot;*&quot;state&quot;^{internal_state}&quot;zalloc&quot;^?&quot;zfree&quot;^?&quot;opaque&quot;^v&quot;data_type&quot;i&quot;adler&quot;I&quot;reserved&quot;I}}' name='gz_state'>
+<field type='{gzFile_s=&quot;have&quot;I&quot;next&quot;*&quot;pos&quot;l}' name='x' declared_type='struct gzFile_s'/>
+<field type='i' name='mode' declared_type='int'/>
+<field type='i' name='fd' declared_type='int'/>
+<field type='*' name='path' declared_type='char*'/>
+<field type='I' name='size' declared_type='unsigned int'/>
+<field type='I' name='want' declared_type='unsigned int'/>
+<field type='*' name='in' declared_type='unsigned char*'/>
+<field type='*' name='out' declared_type='unsigned char*'/>
+<field type='i' name='direct' declared_type='int'/>
+<field type='i' name='how' declared_type='int'/>
+<field type='l' name='start' declared_type='long'/>
+<field type='i' name='eof' declared_type='int'/>
+<field type='i' name='past' declared_type='int'/>
+<field type='i' name='level' declared_type='int'/>
+<field type='i' name='strategy' declared_type='int'/>
+<field type='l' name='skip' declared_type='long'/>
+<field type='i' name='seek' declared_type='int'/>
+<field type='i' name='err' declared_type='int'/>
+<field type='*' name='msg' declared_type='char*'/>
+<field type='{z_stream_s=&quot;next_in&quot;*&quot;avail_in&quot;I&quot;total_in&quot;I&quot;next_out&quot;*&quot;avail_out&quot;I&quot;total_out&quot;I&quot;msg&quot;*&quot;state&quot;^{internal_state}&quot;zalloc&quot;^?&quot;zfree&quot;^?&quot;opaque&quot;^v&quot;data_type&quot;i&quot;adler&quot;I&quot;reserved&quot;I}' name='strm' declared_type='z_stream'/>
+</struct>
+<struct type='{internal_state=&quot;strm&quot;^{z_stream_s}&quot;status&quot;i&quot;pending_buf&quot;*&quot;pending_buf_size&quot;I&quot;pending_out&quot;*&quot;pending&quot;I&quot;wrap&quot;i&quot;gzhead&quot;^{gz_header_s}&quot;gzindex&quot;I&quot;method&quot;C&quot;last_flush&quot;i&quot;w_size&quot;I&quot;w_bits&quot;I&quot;w_mask&quot;I&quot;window&quot;*&quot;window_size&quot;I&quot;prev&quot;^S&quot;head&quot;^S&quot;ins_h&quot;I&quot;hash_size&quot;I&quot;hash_bits&quot;I&quot;hash_mask&quot;I&quot;hash_shift&quot;I&quot;block_start&quot;l&quot;match_length&quot;I&quot;prev_match&quot;I&quot;match_available&quot;i&quot;strstart&quot;I&quot;match_start&quot;I&quot;lookahead&quot;I&quot;prev_length&quot;I&quot;max_chain_length&quot;I&quot;max_lazy_match&quot;I&quot;level&quot;i&quot;strategy&quot;i&quot;good_match&quot;I&quot;nice_match&quot;i&quot;dyn_ltree&quot;[573{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]&quot;dyn_dtree&quot;[61{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]&quot;bl_tree&quot;[39{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]&quot;l_desc&quot;{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}&quot;d_desc&quot;{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}&quot;bl_desc&quot;{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}&quot;bl_count&quot;[16S]&quot;heap&quot;[573i]&quot;heap_len&quot;i&quot;heap_max&quot;i&quot;depth&quot;[573C]&quot;l_buf&quot;*&quot;lit_bufsize&quot;I&quot;last_lit&quot;I&quot;d_buf&quot;^S&quot;opt_len&quot;I&quot;static_len&quot;I&quot;matches&quot;I&quot;insert&quot;I&quot;bi_buf&quot;S&quot;bi_valid&quot;i&quot;high_water&quot;I}' name='internal_state'>
+<field type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<field type='i' name='status' declared_type='int'/>
+<field type='*' name='pending_buf' declared_type='Bytef*'/>
+<field type='L' name='pending_buf_size' declared_type='ulg'/>
+<field type='*' name='pending_out' declared_type='Bytef*'/>
+<field type='I' name='pending' declared_type='uInt'/>
+<field type='i' name='wrap' declared_type='int'/>
+<field type='^{gz_header_s=iIii*II*I*Iii}' name='gzhead' declared_type='gz_headerp'/>
+<field type='I' name='gzindex' declared_type='uInt'/>
+<field type='C' name='method' declared_type='Byte'/>
+<field type='i' name='last_flush' declared_type='int'/>
+<field type='I' name='w_size' declared_type='uInt'/>
+<field type='I' name='w_bits' declared_type='uInt'/>
+<field type='I' name='w_mask' declared_type='uInt'/>
+<field type='*' name='window' declared_type='Bytef*'/>
+<field type='L' name='window_size' declared_type='ulg'/>
+<field type='^S' name='prev' declared_type='Posf*'/>
+<field type='^S' name='head' declared_type='Posf*'/>
+<field type='I' name='ins_h' declared_type='uInt'/>
+<field type='I' name='hash_size' declared_type='uInt'/>
+<field type='I' name='hash_bits' declared_type='uInt'/>
+<field type='I' name='hash_mask' declared_type='uInt'/>
+<field type='I' name='hash_shift' declared_type='uInt'/>
+<field type='l' name='block_start' declared_type='long'/>
+<field type='I' name='match_length' declared_type='uInt'/>
+<field type='I' name='prev_match' declared_type='IPos'/>
+<field type='i' name='match_available' declared_type='int'/>
+<field type='I' name='strstart' declared_type='uInt'/>
+<field type='I' name='match_start' declared_type='uInt'/>
+<field type='I' name='lookahead' declared_type='uInt'/>
+<field type='I' name='prev_length' declared_type='uInt'/>
+<field type='I' name='max_chain_length' declared_type='uInt'/>
+<field type='I' name='max_lazy_match' declared_type='uInt'/>
+<field type='i' name='level' declared_type='int'/>
+<field type='i' name='strategy' declared_type='int'/>
+<field type='I' name='good_match' declared_type='uInt'/>
+<field type='i' name='nice_match' declared_type='int'/>
+<field type='[573{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]' name='dyn_ltree' declared_type='struct ct_data_s*'/>
+<field type='[61{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]' name='dyn_dtree' declared_type='struct ct_data_s*'/>
+<field type='[39{ct_data_s=&quot;fc&quot;(?=&quot;freq&quot;S&quot;code&quot;S)&quot;dl&quot;(?=&quot;dad&quot;S&quot;len&quot;S)}]' name='bl_tree' declared_type='struct ct_data_s*'/>
+<field type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='l_desc' declared_type='struct tree_desc_s'/>
+<field type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='d_desc' declared_type='struct tree_desc_s'/>
+<field type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='bl_desc' declared_type='struct tree_desc_s'/>
+<field type='[16S]' name='bl_count' declared_type='ush*'/>
+<field type='[573i]' name='heap' declared_type='int*'/>
+<field type='i' name='heap_len' declared_type='int'/>
+<field type='i' name='heap_max' declared_type='int'/>
+<field type='[573C]' name='depth' declared_type='uch*'/>
+<field type='*' name='l_buf' declared_type='uchf*'/>
+<field type='I' name='lit_bufsize' declared_type='uInt'/>
+<field type='I' name='last_lit' declared_type='uInt'/>
+<field type='^S' name='d_buf' declared_type='ushf*'/>
+<field type='L' name='opt_len' declared_type='ulg'/>
+<field type='L' name='static_len' declared_type='ulg'/>
+<field type='I' name='matches' declared_type='uInt'/>
+<field type='I' name='insert' declared_type='uInt'/>
+<field type='S' name='bi_buf' declared_type='ush'/>
+<field type='i' name='bi_valid' declared_type='int'/>
+<field type='L' name='high_water' declared_type='ulg'/>
+</struct>
+<struct type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='tree_desc'>
+<field type='^{ct_data_s=(?=SS)(?=SS)}' name='dyn_tree' declared_type='ct_data*'/>
+<field type='i' name='max_code' declared_type='int'/>
+<field type='^{static_tree_desc_s=}' name='stat_desc' declared_type='static_tree_desc*'/>
+</struct>
+<struct type='{tree_desc_s=&quot;dyn_tree&quot;^{ct_data_s}&quot;max_code&quot;i&quot;stat_desc&quot;^{static_tree_desc_s}}' name='tree_desc_s'>
+<field type='^{ct_data_s=(?=SS)(?=SS)}' name='dyn_tree' declared_type='ct_data*'/>
+<field type='i' name='max_code' declared_type='int'/>
+<field type='^{static_tree_desc_s=}' name='stat_desc' declared_type='static_tree_desc*'/>
+</struct>
+<struct type='{z_stream_s=&quot;next_in&quot;*&quot;avail_in&quot;I&quot;total_in&quot;I&quot;next_out&quot;*&quot;avail_out&quot;I&quot;total_out&quot;I&quot;msg&quot;*&quot;state&quot;^{internal_state}&quot;zalloc&quot;^?&quot;zfree&quot;^?&quot;opaque&quot;^v&quot;data_type&quot;i&quot;adler&quot;I&quot;reserved&quot;I}' name='z_stream'>
+<field type='*' name='next_in' declared_type='Bytef*'/>
+<field type='I' name='avail_in' declared_type='uInt'/>
+<field type='L' name='total_in' declared_type='uLong'/>
+<field type='*' name='next_out' declared_type='Bytef*'/>
+<field type='I' name='avail_out' declared_type='uInt'/>
+<field type='L' name='total_out' declared_type='uLong'/>
+<field type='*' name='msg' declared_type='char*'/>
+<field type='^{internal_state=^{z_stream_s}i*I*Ii^{gz_header_s}ICiIII*I^S^SIIIIIlIIiIIIIIIiiIi[573{ct_data_s=(?=SS)(?=SS)}][61{ct_data_s=(?=SS)(?=SS)}][39{ct_data_s=(?=SS)(?=SS)}]{tree_desc_s=^{ct_data_s}i^{static_tree_desc_s}}{tree_desc_s=^{ct_data_s}i^{static_tree_desc_s}}{tree_desc_s=^{ct_data_s}i^{static_tree_desc_s}}[16S][573i]ii[573C]*II^SIIIISiI}' name='state' declared_type='struct internal_state*'/>
+<field type='^?' name='zalloc' function_pointer='true' declared_type='alloc_func'>
+<arg type='^v' declared_type='voidpf'/>
+<arg type='I' declared_type='uInt'/>
+<arg type='I' declared_type='uInt'/>
+<retval type='^v' declared_type='voidpf'/>
+</field>
+<field type='^?' name='zfree' function_pointer='true' declared_type='free_func'>
+<arg type='^v' declared_type='voidpf'/>
+<arg type='^v' declared_type='voidpf'/>
+<retval type='v' declared_type='void'/>
+</field>
+<field type='^v' name='opaque' declared_type='voidpf'/>
+<field type='i' name='data_type' declared_type='int'/>
+<field type='L' name='adler' declared_type='uLong'/>
+<field type='L' name='reserved' declared_type='uLong'/>
+</struct>
+<struct type='{z_stream_s=&quot;next_in&quot;*&quot;avail_in&quot;I&quot;total_in&quot;I&quot;next_out&quot;*&quot;avail_out&quot;I&quot;total_out&quot;I&quot;msg&quot;*&quot;state&quot;^{internal_state}&quot;zalloc&quot;^?&quot;zfree&quot;^?&quot;opaque&quot;^v&quot;data_type&quot;i&quot;adler&quot;I&quot;reserved&quot;I}' name='z_stream_s'>
+<field type='*' name='next_in' declared_type='Bytef*'/>
+<field type='I' name='avail_in' declared_type='uInt'/>
+<field type='L' name='total_in' declared_type='uLong'/>
+<field type='*' name='next_out' declared_type='Bytef*'/>
+<field type='I' name='avail_out' declared_type='uInt'/>
+<field type='L' name='total_out' declared_type='uLong'/>
+<field type='*' name='msg' declared_type='char*'/>
+<field type='^{internal_state=^{z_stream_s}i*I*Ii^{gz_header_s}ICiIII*I^S^SIIIIIlIIiIIIIIIiiIi[573{ct_data_s=(?=SS)(?=SS)}][61{ct_data_s=(?=SS)(?=SS)}][39{ct_data_s=(?=SS)(?=SS)}]{tree_desc_s=^{ct_data_s}i^{static_tree_desc_s}}{tree_desc_s=^{ct_data_s}i^{static_tree_desc_s}}{tree_desc_s=^{ct_data_s}i^{static_tree_desc_s}}[16S][573i]ii[573C]*II^SIIIISiI}' name='state' declared_type='struct internal_state*'/>
+<field type='^?' name='zalloc' function_pointer='true' declared_type='alloc_func'>
+<arg type='^v' declared_type='voidpf'/>
+<arg type='I' declared_type='uInt'/>
+<arg type='I' declared_type='uInt'/>
+<retval type='^v' declared_type='voidpf'/>
+</field>
+<field type='^?' name='zfree' function_pointer='true' declared_type='free_func'>
+<arg type='^v' declared_type='voidpf'/>
+<arg type='^v' declared_type='voidpf'/>
+<retval type='v' declared_type='void'/>
+</field>
+<field type='^v' name='opaque' declared_type='voidpf'/>
+<field type='i' name='data_type' declared_type='int'/>
+<field type='L' name='adler' declared_type='uLong'/>
+<field type='L' name='reserved' declared_type='uLong'/>
+</struct>
+<opaque type='^{static_tree_desc_s=}' name='static_tree_desc'/>
+<constant type='[30i]' name='base_dist' declared_type='int*' const='true'/>
+<constant type='[29i]' name='base_length' declared_type='int*' const='true'/>
+<constant type='[32i]' name='distfix' declared_type='int*' const='true'/>
+<constant type='[512i]' name='lenfix' declared_type='int*' const='true'/>
+<constant type='[30{ct_data_s=(?=SS)(?=SS)}]' name='static_dtree' declared_type='ct_data*' const='true'/>
+<constant type='[288{ct_data_s=(?=SS)(?=SS)}]' name='static_ltree' declared_type='ct_data*' const='true'/>
+<constant type='[10*]' name='z_errmsg' declared_type='char **' const='true'/>
+<string_constant name='ZLIB_VERSION' value='1.2.7'/>
+<enum name='BL_CODES' value='19'/>
+<enum name='BUSY_STATE' value='113'/>
+<enum name='Buf_size' value='16'/>
+<enum name='CODES' value='0'/>
+<enum name='COMMENT' value='7'/>
+<enum name='COMMENT_STATE' value='91'/>
+<enum name='COPY' value='1'/>
+<enum name='COPY_' value='14'/>
+<enum name='DEF_MEM_LEVEL' value='8'/>
+<enum name='DEF_WBITS' value='15'/>
+<enum name='DICT' value='10'/>
+<enum name='DICTID' value='9'/>
+<enum name='DISTS' value='2'/>
+<enum name='DYN_TREES' value='2'/>
+<enum name='D_CODES' value='30'/>
+<enum name='ENOUGH' value='1444'/>
+<enum name='ENOUGH_DISTS' value='592'/>
+<enum name='ENOUGH_LENS' value='852'/>
+<enum name='EXLEN' value='4'/>
+<enum name='EXTRA' value='5'/>
+<enum name='EXTRA_STATE' value='69'/>
+<enum name='FINISH_STATE' value='666'/>
+<enum name='FLAGS' value='1'/>
+<enum name='GZBUFSIZE' value='8192'/>
+<enum name='GZIP' value='2'/>
+<enum name='GZ_APPEND' value='1'/>
+<enum name='GZ_NONE' value='0'/>
+<enum name='GZ_READ' value='7247'/>
+<enum name='GZ_WRITE' value='31153'/>
+<enum name='HCRC' value='8'/>
+<enum name='HCRC_STATE' value='103'/>
+<enum name='HEAD' value='0'/>
+<enum name='HEAP_SIZE' value='573'/>
+<enum name='INIT_STATE' value='42'/>
+<enum name='LENGTH_CODES' value='29'/>
+<enum name='LENS' value='1'/>
+<enum name='LITERALS' value='256'/>
+<enum name='LOOK' value='0'/>
+<enum name='L_CODES' value='286'/>
+<enum name='MAX_BITS' value='15'/>
+<enum name='MAX_MATCH' value='258'/>
+<enum name='MAX_MEM_LEVEL' value='9'/>
+<enum name='MAX_WBITS' value='15'/>
+<enum name='MIN_LOOKAHEAD' value='262'/>
+<enum name='MIN_MATCH' value='3'/>
+<enum name='NAME' value='6'/>
+<enum name='NAME_STATE' value='73'/>
+<enum name='OS' value='3'/>
+<enum name='OS_CODE' value='7'/>
+<enum name='PRESET_DICT' value='32'/>
+<enum name='STATIC_TREES' value='1'/>
+<enum name='STORED' value='13'/>
+<enum name='STORED_BLOCK' value='0'/>
+<enum name='TIME' value='2'/>
+<enum name='TYPE' value='11'/>
+<enum name='TYPEDO' value='12'/>
+<enum name='WIN_INIT' value='258'/>
+<enum name='ZLIB_VERNUM' value='4720'/>
+<enum name='ZLIB_VER_MAJOR' value='1'/>
+<enum name='ZLIB_VER_MINOR' value='2'/>
+<enum name='ZLIB_VER_REVISION' value='7'/>
+<enum name='ZLIB_VER_SUBREVISION' value='0'/>
+<enum name='Z_ASCII' value='1'/>
+<enum name='Z_BEST_COMPRESSION' value='9'/>
+<enum name='Z_BEST_SPEED' value='1'/>
+<enum name='Z_BINARY' value='0'/>
+<enum name='Z_BLOCK' value='5'/>
+<enum name='Z_BUF_ERROR' value='-5'/>
+<enum name='Z_DATA_ERROR' value='-3'/>
+<enum name='Z_DEFAULT_COMPRESSION' value='-1'/>
+<enum name='Z_DEFAULT_STRATEGY' value='0'/>
+<enum name='Z_DEFLATED' value='8'/>
+<enum name='Z_ERRNO' value='-1'/>
+<enum name='Z_FILTERED' value='1'/>
+<enum name='Z_FINISH' value='4'/>
+<enum name='Z_FIXED' value='4'/>
+<enum name='Z_FULL_FLUSH' value='3'/>
+<enum name='Z_HUFFMAN_ONLY' value='2'/>
+<enum name='Z_MEM_ERROR' value='-4'/>
+<enum name='Z_NEED_DICT' value='2'/>
+<enum name='Z_NO_COMPRESSION' value='0'/>
+<enum name='Z_NO_FLUSH' value='0'/>
+<enum name='Z_NULL' value='0'/>
+<enum name='Z_OK' value='0'/>
+<enum name='Z_PARTIAL_FLUSH' value='1'/>
+<enum name='Z_RLE' value='3'/>
+<enum name='Z_STREAM_END' value='1'/>
+<enum name='Z_STREAM_ERROR' value='-2'/>
+<enum name='Z_SYNC_FLUSH' value='2'/>
+<enum name='Z_TEXT' value='1'/>
+<enum name='Z_TREES' value='6'/>
+<enum name='Z_UNKNOWN' value='2'/>
+<enum name='Z_VERSION_ERROR' value='-6'/>
+<function name='adler32'>
+<arg type='L' name='adler' declared_type='uLong'/>
+<arg type='*' name='buf' declared_type='Bytef*' const='true'/>
+<arg type='I' name='len' declared_type='uInt'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='adler32_combine'>
+<arg type='L' declared_type='uLong'/>
+<arg type='L' declared_type='uLong'/>
+<arg type='l' declared_type='long'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='adler32_combine64'>
+<arg type='L' declared_type='uLong'/>
+<arg type='L' declared_type='uLong'/>
+<arg type='l' declared_type='long'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='compress'>
+<arg type='*' name='dest' declared_type='Bytef*'/>
+<arg type='^I' name='destLen' declared_type='uLongf*'/>
+<arg type='*' name='source' declared_type='Bytef*' const='true'/>
+<arg type='L' name='sourceLen' declared_type='uLong'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='compress2'>
+<arg type='*' name='dest' declared_type='Bytef*'/>
+<arg type='^I' name='destLen' declared_type='uLongf*'/>
+<arg type='*' name='source' declared_type='Bytef*' const='true'/>
+<arg type='L' name='sourceLen' declared_type='uLong'/>
+<arg type='i' name='level' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='compressBound'>
+<arg type='L' name='sourceLen' declared_type='uLong'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='crc32'>
+<arg type='L' name='crc' declared_type='uLong'/>
+<arg type='*' name='buf' declared_type='Bytef*' const='true'/>
+<arg type='I' name='len' declared_type='uInt'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='crc32_combine'>
+<arg type='L' declared_type='uLong'/>
+<arg type='L' declared_type='uLong'/>
+<arg type='l' declared_type='long'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='crc32_combine64'>
+<arg type='L' declared_type='uLong'/>
+<arg type='L' declared_type='uLong'/>
+<arg type='l' declared_type='long'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='deflate'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='flush' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateBound'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='L' name='sourceLen' declared_type='uLong'/>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='deflateCopy'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='dest' declared_type='z_streamp'/>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='source' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateEnd'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateInit2_'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='level' declared_type='int'/>
+<arg type='i' name='method' declared_type='int'/>
+<arg type='i' name='windowBits' declared_type='int'/>
+<arg type='i' name='memLevel' declared_type='int'/>
+<arg type='i' name='strategy' declared_type='int'/>
+<arg type='*' name='version' declared_type='char*' const='true'/>
+<arg type='i' name='stream_size' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateInit_'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='level' declared_type='int'/>
+<arg type='*' name='version' declared_type='char*' const='true'/>
+<arg type='i' name='stream_size' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateParams'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='level' declared_type='int'/>
+<arg type='i' name='strategy' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflatePending'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='^I' name='pending' declared_type='unsigned int*'/>
+<arg type='^i' name='bits' declared_type='int*'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflatePrime'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='bits' declared_type='int'/>
+<arg type='i' name='value' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateReset'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateResetKeep'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateSetDictionary'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='*' name='dictionary' declared_type='Bytef*' const='true'/>
+<arg type='I' name='dictLength' declared_type='uInt'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateSetHeader'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='^{gz_header_s=iIii*II*I*Iii}' name='head' declared_type='gz_headerp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='deflateTune'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='good_length' declared_type='int'/>
+<arg type='i' name='max_lazy' declared_type='int'/>
+<arg type='i' name='nice_length' declared_type='int'/>
+<arg type='i' name='max_chain' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='get_crc_table'>
+<retval type='^I' declared_type='z_crc_t*' const='true'/>
+</function>
+<function name='gz_error'>
+<arg type='^{_gz_statep={gzFile_s=I*l}ii*II**iiliiiilii*{z_stream_s=*II*II*^{internal_state}^?^?^viII}}' declared_type='gz_statep'/>
+<arg type='i' declared_type='int'/>
+<arg type='*' declared_type='char*' const='true'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='gzbuffer'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='I' name='size' declared_type='unsigned int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzclearerr'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='gzclose'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzclose_r'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzclose_w'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzdirect'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzdopen'>
+<arg type='i' name='fd' declared_type='int'/>
+<arg type='*' name='mode' declared_type='char*' const='true'/>
+<retval type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+</function>
+<function name='gzeof'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzerror'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='^i' name='errnum' declared_type='int*'/>
+<retval type='*' declared_type='char*' const='true'/>
+</function>
+<function name='gzflush'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='i' name='flush' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzgetc'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzgetc_'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzgets'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='*' name='buf' declared_type='char*'/>
+<arg type='i' name='len' declared_type='int'/>
+<retval type='*' declared_type='char*'/>
+</function>
+<function name='gzoffset'>
+<arg type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='gzoffset64'>
+<arg type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='gzopen'>
+<arg type='*' declared_type='char*' const='true'/>
+<arg type='*' declared_type='char*' const='true'/>
+<retval type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+</function>
+<function name='gzopen64'>
+<arg type='*' declared_type='char*' const='true'/>
+<arg type='*' declared_type='char*' const='true'/>
+<retval type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+</function>
+<function name='gzprintf' variadic='true'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='*' name='format' declared_type='char*' const='true'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzputc'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='i' name='c' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzputs'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='*' name='s' declared_type='char*' const='true'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzread'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='^v' name='buf' declared_type='voidp'/>
+<arg type='I' name='len' declared_type='unsigned int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzrewind'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzseek'>
+<arg type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+<arg type='l' declared_type='long'/>
+<arg type='i' declared_type='int'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='gzseek64'>
+<arg type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+<arg type='l' declared_type='long'/>
+<arg type='i' declared_type='int'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='gzsetparams'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='i' name='level' declared_type='int'/>
+<arg type='i' name='strategy' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gztell'>
+<arg type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='gztell64'>
+<arg type='^{gzFile_s=I*l}' declared_type='gzFile'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='gzungetc'>
+<arg type='i' name='c' declared_type='int'/>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='gzwrite'>
+<arg type='^{gzFile_s=I*l}' name='file' declared_type='gzFile'/>
+<arg type='^v' name='buf' declared_type='voidpc'/>
+<arg type='I' name='len' declared_type='unsigned int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflate'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='flush' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateBack'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='^?' name='in' function_pointer='true' declared_type='in_func'>
+<arg type='^v' declared_type='void*'/>
+<arg type='^*' declared_type='unsigned char**'/>
+<retval type='I' declared_type='unsigned int'/>
+</arg>
+<arg type='^v' name='in_desc' declared_type='void*'/>
+<arg type='^?' name='out' function_pointer='true' declared_type='out_func'>
+<arg type='^v' declared_type='void*'/>
+<arg type='*' declared_type='unsigned char*'/>
+<arg type='I' declared_type='unsigned int'/>
+<retval type='i' declared_type='int'/>
+</arg>
+<arg type='^v' name='out_desc' declared_type='void*'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateBackEnd'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateBackInit_'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='windowBits' declared_type='int'/>
+<arg type='*' name='window' declared_type='unsigned char*'/>
+<arg type='*' name='version' declared_type='char*' const='true'/>
+<arg type='i' name='stream_size' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateCopy'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='dest' declared_type='z_streamp'/>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='source' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateEnd'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateGetHeader'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='^{gz_header_s=iIii*II*I*Iii}' name='head' declared_type='gz_headerp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateInit2_'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='windowBits' declared_type='int'/>
+<arg type='*' name='version' declared_type='char*' const='true'/>
+<arg type='i' name='stream_size' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateInit_'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='*' name='version' declared_type='char*' const='true'/>
+<arg type='i' name='stream_size' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateMark'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='l' declared_type='long'/>
+</function>
+<function name='inflatePrime'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='bits' declared_type='int'/>
+<arg type='i' name='value' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateReset'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateReset2'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='i' name='windowBits' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateResetKeep'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateSetDictionary'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='*' name='dictionary' declared_type='Bytef*' const='true'/>
+<arg type='I' name='dictLength' declared_type='uInt'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateSync'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateSyncPoint'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' declared_type='z_streamp'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflateUndermine'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' declared_type='z_streamp'/>
+<arg type='i' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='inflate_fast'>
+<arg type='^{z_stream_s=*II*II*^{internal_state}^?^?^viII}' name='strm' declared_type='z_streamp'/>
+<arg type='I' name='start' declared_type='unsigned int'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='inflate_table'>
+<arg type='i' name='type' declared_type='codetype'/>
+<arg type='^S' name='lens' declared_type='unsigned short*'/>
+<arg type='I' name='codes' declared_type='unsigned int'/>
+<arg type='^^{?}' name='table' declared_type='code**'/>
+<arg type='^I' name='bits' declared_type='unsigned int*'/>
+<arg type='^S' name='work' declared_type='unsigned short*'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='uncompress'>
+<arg type='*' name='dest' declared_type='Bytef*'/>
+<arg type='^I' name='destLen' declared_type='uLongf*'/>
+<arg type='*' name='source' declared_type='Bytef*' const='true'/>
+<arg type='L' name='sourceLen' declared_type='uLong'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='zError'>
+<arg type='i' declared_type='int'/>
+<retval type='*' declared_type='char*' const='true'/>
+</function>
+<function name='zcalloc'>
+<arg type='^v' name='opaque' declared_type='voidpf'/>
+<arg type='I' name='items' declared_type='unsigned int'/>
+<arg type='I' name='size' declared_type='unsigned int'/>
+<retval type='^v' declared_type='voidpf'/>
+</function>
+<function name='zcfree'>
+<arg type='^v' name='opaque' declared_type='voidpf'/>
+<arg type='^v' name='ptr' declared_type='voidpf'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='zcompress'>
+<arg type='*' name='in' declared_type='unsigned char*'/>
+<arg type='i' name='in_len' declared_type='int'/>
+<arg type='*' name='out' declared_type='unsigned char*'/>
+<arg type='i' name='out_len' declared_type='int'/>
+<retval type='i' declared_type='int'/>
+</function>
+<function name='zlibCompileFlags'>
+<retval type='L' declared_type='uLong'/>
+</function>
+<function name='zlibVersion'>
+<retval type='*' declared_type='char*' const='true'/>
+</function>
+<function_alias name='zmemcmp' original='memcmp'/>
+<function_alias name='zmemcpy' original='memcpy'/>
+</signatures>
