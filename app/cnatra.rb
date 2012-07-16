@@ -5,7 +5,7 @@ class Cnatra
   def handle_request request
     m = %r{^/images/(\d+)}.match(request)
     if m
-      photo = get_photos([m[1]])[0]
+      photo = get_photos([m[1]]).map{|img| uiImage_to_NSData(img, 1024)}[0]
       ["200", ["Content-Length", "#{photo.length}"], photo]
     else
       ["404", [], ""]
@@ -24,9 +24,10 @@ class Cnatra
 	  options:NSEnumerationReverse,
 	  usingBlock: lambda do |result, index, stop|
 	    next if index == NSNotFound || index == -1
-	    @photos.addObject(UIImageJPEGRepresentation(
-	      UIImage.imageWithCGImage(result.defaultRepresentation.fullResolutionImage),
-	      1.0))
+            representation = result.defaultRepresentation
+            uiImage = UIImage.alloc.initWithCGImage(representation.fullResolutionImage,
+                                               scale:1.0, orientation:representation.orientation)
+            @photos.addObject(uiImage)
 	  end
 	)
         albumReadLock.lock
@@ -54,4 +55,57 @@ puts "DEBUGGGGGGGGGGGGGGGG @photos.size = #{@photos.size}"
     end
     return i
   end
+
+  def uiImage_to_NSData uiImage, max_dim
+    # resize to max width or height with max_dim
+    width, height = [uiImage.size.width, uiImage.size.height]
+    scale = [(max_dim.to_f / width), (max_dim.to_f / height), 1.0].min
+    resized_img = resize_image(uiImage, (width*scale).to_i + 1, (height*scale).to_i + 1)
+    NSData.alloc.initWithData(UIImageJPEGRepresentation(resized_img, 1.0))
+  end
+
+  def resize_image image, width, height
+    imageRef = image.CGImage
+    colorSpace = CGColorSpaceCreateDeviceRGB()
+    bitmap = CGBitmapContextCreate(nil, width, height, CGImageGetBitsPerComponent(imageRef),
+                                   0, CGImageGetColorSpace(imageRef),
+                                   KCGImageAlphaPremultipliedFirst)
+    transform = CGAffineTransformIdentity
+    case image.imageOrientation
+    when UIImageOrientationDown
+      transform = CGAffineTransformTranslate(transform, width, height)
+      transform = CGAffineTransformRotate(transform, M_PI)
+    when UIImageOrientationDownMirrored
+      transform = CGAffineTransformTranslate(transform, width, height)
+      transform = CGAffineTransformRotate(transform, M_PI)
+      transform = CGAffineTransformTranslate(transform, width, 0)
+      transform = CGAffineTransformScale(transform, -1, 1)
+    when UIImageOrientationLeft
+      transform = CGAffineTransformTranslate(transform, width, 0)
+      transform = CGAffineTransformRotate(transform, M_PI_2)
+    when UIImageOrientationLeftMirrored
+      transform = CGAffineTransformTranslate(transform, width, 0)
+      transform = CGAffineTransformRotate(transform, M_PI_2)
+      transform = CGAffineTransformTranslate(transform, height, 0)
+      transform = CGAffineTransformScale(transform, -1, 1)
+    when UIImageOrientationRight
+      transform = CGAffineTransformTranslate(transform, 0, height)
+      transform = CGAffineTransformRotate(transform, -M_PI_2)
+    when UIImageOrientationRightMirrored
+      transform = CGAffineTransformTranslate(transform, 0, height)
+      transform = CGAffineTransformRotate(transform, -M_PI_2)
+      transform = CGAffineTransformTranslate(transform, height, 0)
+      transform = CGAffineTransformScale(transform, -1, 1)
+    end
+    CGContextConcatCTM(bitmap, transform)
+    CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef)
+    ref = CGBitmapContextCreateImage(bitmap)
+    result = UIImage.imageWithCGImage(ref)
+    CGContextRelease(bitmap)
+    CGImageRelease(ref)
+    result
+  end
+
+  M_PI = Math::PI
+  M_PI_2 = Math::PI / 2
 end # class Cnatra
