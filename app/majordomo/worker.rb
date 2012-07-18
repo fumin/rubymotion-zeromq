@@ -47,16 +47,16 @@ puts "E: invalid input message"
           end
         else
           @liveness -= 1
-puts "[DEBUG] @liveness - 1, @liveness = #{@liveness}, #{Time.now.strftime("%T")}"
+#puts "[DEBUG] @liveness - 1, @liveness = #{@liveness}, #{Time.now.strftime("%T")}"
           if @liveness == 0
 puts "W: disconnected from broker - retrying..."
             sleep @reconnect.to_f / 1000
             connect_to_broker
           end
         end
-puts "[DEBUG] Time.now = #{Time.now.strftime("%T")}, @heartbeat_at = #{@heartbeat_at}"
+#puts "[DEBUG] Time.now = #{Time.now.strftime("%T")}, @heartbeat_at = #{@heartbeat_at}"
         if Time.now.tv_sec * 1000 > @heartbeat_at
-puts "[INFO] send_to_broker W_HEARTBEAT ^^ #{Time.now.strftime("%T")}"
+#puts "[INFO] send_to_broker W_HEARTBEAT ^^ #{Time.now.strftime("%T")}"
           send_to_broker W_HEARTBEAT, nil, []
           @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
         end

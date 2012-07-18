@@ -19,14 +19,6 @@ class TestViewController < UIViewController
     #@poller = ZMQ::Poller.new
     #@poller.register(@testsock, ZMQ::POLLIN)
 
-    outerQueue = Dispatch::Queue.concurrent(priority=:default)
-    outerQueue.async do
-      service = get_service "fumin", "0000"
-puts "service = #{service}"
-      queue = Dispatch::Queue.concurrent(priority=:default)
-      1.times{ |i| queue.async{dispatch_majordomo_worker service} }
-    end
-
     request_str = 'GET /books/ctutorial/Building-a-library.html HTTP/1.1
 Host: crasseux.com
 Connection: keep-alive
@@ -46,54 +38,6 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
   #@parser.execute httpparser, request_str, 0
   #puts "@parser.finished? = #{@parser.finished?}, @parser.error? = #{@parser.error?}"
   #puts httpparser
-  end
-
-  def get_service user_name, password
-    host = "afternoon-fog-1338.herokuapp.com"
-    #host = "localhost:9292"
-    theRequest = NSURLRequest.requestWithURL NSURL.URLWithString("http://#{host}/route_login?user_name=#{user_name}&password=#{password}")
-    requestError = Pointer.new(:object)
-    urlResponse = Pointer.new(:object)
-    (NSURLConnection.sendSynchronousRequest(theRequest, returningResponse:urlResponse, error:requestError) || "").to_str
-  end
-
-  def dispatch_majordomo_worker service
-    worker = Majordomo::Worker.new "tcp://geneva3.godfat.org:5555", service
-    reply = nil
-    loop do
-      request = worker.streamed_recv reply
-      code, headers, body = Cnatra.new.handle_request(request)
-      reply = [[code].concat(headers)].concat( chunk(body, 200 * 1000) ) 
-              # split into chunks of 100k
-puts "[DEBUG] in loop: reply.size = #{reply.size}"
-    end
-  end
-
-  def chunk(myBlob, chunkSize)
-    return [""] if myBlob.length == 0
-    retval = []
-    length = myBlob.length
-    offset = 0
-    while offset < length
-      thisChunkSize = length - offset > chunkSize ? chunkSize : length - offset;
-      chunk = NSData.dataWithBytesNoCopy myBlob.bytes + offset,
-                                         length:thisChunkSize,
-                                         freeWhenDone: false
-      offset += thisChunkSize
-      # do something with chunk
-      retval << zlib_deflate(chunk)
-      #retval << chunk
-    end
-    retval
-  end
-
-  def zlib_deflate nsdata
-    out_data = NSMutableData.alloc.initWithLength(nsdata.length)
-    ret = zcompress(nsdata.bytes, nsdata.length, out_data.bytes, out_data.length)
-    return ret if ret < 0
-    out_data.setLength(ret)
-puts "[DEBUG] zlib_deflate: out_data.length = #{out_data.length} #{Time.now.strftime("%T")}"
-    out_data
   end
 
   def joinChat
