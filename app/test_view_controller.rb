@@ -3,11 +3,9 @@ class TestViewController < UIViewController
 
   def viewDidLoad
     puts "viewDidLoad"
-    self.navigationItem.rightBarButtonItem = 
-      UIBarButtonItem.alloc.initWithTitle:"Join", 
-        style:UIBarButtonItemStyleBordered,
-        target:self,
-        action:'joinChat'
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithTitle:"kill",
+                                               style:UIBarButtonItemStyleBordered,
+                                               target:self, action:'serverPowerSwitch'
     @photos = NSMutableArray.alloc.initWithCapacity(0)
 
     #@connect = "tcp://localhost:5555"
@@ -38,6 +36,17 @@ If-Modified-Since: Tue, 24 May 2005 22:39:08 GMT
   #@parser.execute httpparser, request_str, 0
   #puts "@parser.finished? = #{@parser.finished?}, @parser.error? = #{@parser.error?}"
   #puts httpparser
+  end
+
+  def serverPowerSwitch
+    if UIApplication.sharedApplication.delegate.should_kill_workers
+      self.navigationItem.rightBarButtonItem.title = "kill"
+      UIApplication.sharedApplication.delegate.dispatch_workers
+      UIApplication.sharedApplication.delegate.should_kill_workers = false
+    else
+      self.navigationItem.rightBarButtonItem.title = "start"
+      UIApplication.sharedApplication.delegate.should_kill_workers = true
+    end
   end
 
   def joinChat

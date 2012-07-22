@@ -3,16 +3,20 @@ class Cnatra
     @photos = NSMutableArray.alloc.initWithCapacity(0)
   end
   def handle_request request
-    m = %r{^/images/(\d+)}.match(request)
-    if m
+    if m = %r{^/number_of_images/?$}.match(request)
+      ["200", [], number_of_photos.to_s]
+    elsif m = %r{^/images/(\d+)}.match(request)
       photo = get_photos([m[1]]).map{|img| uiImage_to_NSData(img, 1024)}[0]
+      ["200", ["Content-Length", "#{photo.length}"], photo]
+    elsif m = %r{^/thumbnails/(\d+)}.match(request)
+      photo = UIImageJPEGRepresentation(get_photos([m[1]], :thumbnail)[0], 1.0)
       ["200", ["Content-Length", "#{photo.length}"], photo]
     else
       ["404", [], ""]
     end
   end
 
-  def get_photos int_array
+  def get_photos int_array, representation=:full
     indices = intArrayToNSIndexSet(int_array.map(&:to_i))
     albumReadLock = NSConditionLock.alloc.initWithCondition 1
     # photos is an array of NSData*
@@ -24,9 +28,14 @@ class Cnatra
 	  options:NSEnumerationReverse,
 	  usingBlock: lambda do |result, index, stop|
 	    next if index == NSNotFound || index == -1
-            representation = result.defaultRepresentation
-            uiImage = UIImage.alloc.initWithCGImage(representation.fullResolutionImage,
-                                               scale:1.0, orientation:representation.orientation)
+            uiImage = case representation
+                      when :full
+                        repre = result.defaultRepresentation
+                        UIImage.alloc.initWithCGImage(repre.fullResolutionImage,
+                                                 scale:1.0, orientation:repre.orientation)
+                      else
+                        UIImage.alloc.initWithCGImage(result.thumbnail)
+                      end
             @photos.addObject(uiImage)
 	  end
 	)
@@ -45,6 +54,25 @@ class Cnatra
     albumReadLock.unlock
 puts "DEBUGGGGGGGGGGGGGGGG @photos.size = #{@photos.size}"
     @photos
+  end
+
+  def number_of_photos
+    albumReadLock = NSConditionLock.alloc.initWithCondition 1
+    ALAssetsLibrary.alloc.init.enumerateGroupsWithTypes(ALAssetsGroupSavedPhotos,
+      usingBlock: lambda do |group, stop|
+        break if !group
+        @num_of_photos = group.numberOfAssets
+        albumReadLock.lock
+        albumReadLock.unlockWithCondition 0
+      end,
+      failureBlock: lambda do |err|
+        puts err.localizedDescription
+        albumReadLock.lock
+        albumReadLock.unlockWithCondition 0
+      end)
+    albumReadLock.lockWhenCondition 0
+    albumReadLock.unlock
+    @num_of_photos
   end
 
   def intArrayToNSIndexSet array
@@ -72,6 +100,9 @@ puts "DEBUGGGGGGGGGGGGGGGG @photos.size = #{@photos.size}"
                                    KCGImageAlphaPremultipliedFirst)
     transform = CGAffineTransformIdentity
     case image.imageOrientation
+    when UIImageOrientationUpMirrored
+      transform = CGAffineTransformTranslate(transform, width, 0)
+      transform = CGAffineTransformScale(transform, -1, 1)
     when UIImageOrientationDown
       transform = CGAffineTransformTranslate(transform, width, height)
       transform = CGAffineTransformRotate(transform, M_PI)

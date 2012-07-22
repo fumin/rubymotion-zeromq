@@ -28,6 +28,7 @@ module Majordomo
     def recv reply
       send_to_broker(W_REPLY, nil, reply.unshift("").unshift(@reply_to)) if @reply_to && reply
       while true
+        return if UIApplication.sharedApplication.delegate.should_kill_workers
         @poller.poll @heartbeat
         if @poller.readables.size == 1
           msg = @poller.readables[0].recvmsgs
@@ -80,6 +81,6 @@ puts "I: connecting to broker at #{@broker}"
       @liveness = HEARTBEAT_LIVENESS
       @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
     end
-    HEARTBEAT_LIVENESS = 10 # 3-5 is reasonable
+    HEARTBEAT_LIVENESS = 5 # 3-5 is reasonable
   end # class Worker
 end # module Majordomo
