@@ -88,16 +88,32 @@ puts "DEBUGGGGGGGGGGGGGGGG @photos.size = #{@photos.size}"
     # resize to max width or height with max_dim
     width, height = [uiImage.size.width, uiImage.size.height]
     scale = [(max_dim.to_f / width), (max_dim.to_f / height), 1.0].min
-    resized_img = resize_image(uiImage, (width*scale).to_i + 1, (height*scale).to_i + 1)
+    resized_img = resize_image(uiImage, scale)
     NSData.alloc.initWithData(UIImageJPEGRepresentation(resized_img, 1.0))
   end
 
-  def resize_image image, width, height
-    imageRef = image.CGImage
-    colorSpace = CGColorSpaceCreateDeviceRGB()
-    bitmap = CGBitmapContextCreate(nil, width, height, CGImageGetBitsPerComponent(imageRef),
+  def resize_image image, scale=1
+    rotated_img = rotate_image image
+    resizedWidth = rotated_img.size.width * scale
+    resizedHeight = rotated_img.size.height * scale
+    imageRef = rotated_img.CGImage
+    bitmap = CGBitmapContextCreate(nil, resizedWidth, resizedHeight,
+                                   CGImageGetBitsPerComponent(imageRef),
                                    0, CGImageGetColorSpace(imageRef),
                                    KCGImageAlphaPremultipliedFirst)
+    CGContextDrawImage(bitmap,
+      CGRectMake(0, 0, resizedWidth, resizedHeight), imageRef)
+    ref = CGBitmapContextCreateImage(bitmap)
+    result = UIImage.imageWithCGImage(ref)
+    CGContextRelease(bitmap)
+    CGImageRelease(ref)
+    result
+  end
+
+  def rotate_image image
+    # https://gist.github.com/1064652
+    width = image.size.width; height = image.size.height
+    imageRef = image.CGImage
     transform = CGAffineTransformIdentity
     case image.imageOrientation
     when UIImageOrientationUpMirrored
@@ -128,8 +144,22 @@ puts "DEBUGGGGGGGGGGGGGGGG @photos.size = #{@photos.size}"
       transform = CGAffineTransformTranslate(transform, height, 0)
       transform = CGAffineTransformScale(transform, -1, 1)
     end
+    bitmap = CGBitmapContextCreate(nil, width, height, CGImageGetBitsPerComponent(imageRef),
+                                   0, CGImageGetColorSpace(imageRef),
+                                   KCGImageAlphaPremultipliedFirst)
     CGContextConcatCTM(bitmap, transform)
-    CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef)
+    case image.imageOrientation
+    when UIImageOrientationLeft
+      CGContextDrawImage(bitmap, CGRectMake(0, 0, height, width), imageRef)
+    when UIImageOrientationRight
+      CGContextDrawImage(bitmap, CGRectMake(0, 0, height, width), imageRef)
+    when UIImageOrientationLeftMirrored
+      CGContextDrawImage(bitmap, CGRectMake(0, 0, height, width), imageRef)
+    when UIImageOrientationRightMirrored
+      CGContextDrawImage(bitmap, CGRectMake(0, 0, height, width), imageRef)
+    else
+      CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef)
+    end
     ref = CGBitmapContextCreateImage(bitmap)
     result = UIImage.imageWithCGImage(ref)
     CGContextRelease(bitmap)

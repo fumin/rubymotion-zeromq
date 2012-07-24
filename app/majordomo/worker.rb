@@ -81,6 +81,6 @@ puts "I: connecting to broker at #{@broker}"
       @liveness = HEARTBEAT_LIVENESS
       @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
     end
-    HEARTBEAT_LIVENESS = 5 # 3-5 is reasonable
+    HEARTBEAT_LIVENESS = 10 # 3-5 is reasonable
   end # class Worker
 end # module Majordomo

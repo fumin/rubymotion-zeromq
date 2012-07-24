@@ -38,7 +38,8 @@ puts "@current_service = #{@current_service}"
 
   def get_service user_name, password
     #host = "iphone.nandalu.idv.tw"
-    host = "localhost:9292"
+    #host = "localhost:9292"
+    host = "geneva3.godfat.org:12352"
     theRequest = NSURLRequest.requestWithURL NSURL.URLWithString(
                    "http://#{host}/route_login?user_name=#{user_name}&password=#{password}")
     requestError = Pointer.new(:object); urlResponse = Pointer.new(:object)
