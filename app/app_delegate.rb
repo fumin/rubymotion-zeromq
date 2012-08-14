@@ -28,7 +28,8 @@ class AppDelegate
   def dispatch_workers
     queue = Dispatch::Queue.concurrent(priority=:default)
     queue.async do
-      @current_service = get_service "fumin", "0000"
+      @current_service = get_service "cardinalblue", "Studio701"
+      #@current_service = get_service "fumin", "0000"
 puts "@current_service = #{@current_service}"
       WORKERS.times do |i|
         queue.async{ dispatch_majordomo_worker @current_service }
