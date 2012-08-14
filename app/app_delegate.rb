@@ -3,10 +3,12 @@ class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     application.setStatusBarHidden(true, withAnimation:UIStatusBarAnimationFade)
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.makeKeyAndVisible
     @window.rootViewController = UINavigationController.alloc.
                                    initWithRootViewController(TestViewController.alloc.init)
     #@window.rootViewController = MainController.alloc.initWithNibName(nil, bundle: nil)
+
+    # this must be after setting rootViewController, otherwise CRASH
+    @window.makeKeyAndVisible
     
     UIApplication.sharedApplication.setIdleTimerDisabled true
     @should_kill_workers = true
