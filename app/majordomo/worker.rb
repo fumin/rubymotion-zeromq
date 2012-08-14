@@ -37,7 +37,7 @@ module Majordomo
         @poller.poll @heartbeat
         if @poller.readables.size == 1
           msg = @poller.readables[0].recvmsgs
-puts "I: received message #{msg}"
+#puts "I: received message #{msg}"
           @liveness = HEARTBEAT_LIVENESS
           return unless msg.size >= 3 && msg[0] == "" && msg[1] == W_WORKER
           command = msg[2]

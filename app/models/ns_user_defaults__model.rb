@@ -4,11 +4,10 @@ class NSUserDefaultsModel
     raise NotImplementedError
   end
   def properties_
-    properties.concat(:id)
+    properties + [:id]
   end
-  #properties_.each { |prop|
-  #  attr_accessor prop
-  #}
+  attr_accessor :id
+  MANDATORY_PARAMS = []
 
   def initialize(attributes = {})
     attributes.each { |key, value|
@@ -32,23 +31,25 @@ class NSUserDefaultsModel
     }
   end
 
-  def defaults
-    NSUserDefaults.standardUserDefaults
-  end
-
   def self.find _id
-    NSKeyedUnarchiver.unarchiveObjectWithData(defaults[full_id(_id)])
+    NSKeyedUnarchiver.unarchiveObjectWithData(
+      NSUserDefaults.standardUserDefaults[Route.new.full_id(_id)])
   end
 
   def save
-    defaults[full_id(id)] = NSKeyedArchiver.archivedDataWithRootObject(self)
+    self.class::MANDATORY_PARAMS.each{|p| return unless self.send(p.to_s)}
+    return unless id
+    NSUserDefaults.standardUserDefaults[full_id(id)] =
+      NSKeyedArchiver.archivedDataWithRootObject(self)
+    self
   end
 
   def destroy
-    defaults.removeObjectForKey( full_id(id) )
+    NSUserDefaults.standardUserDefaults.removeObjectForKey( full_id(id) )
+    self
   end
 
-  def self.full_id _id
+  def full_id _id
     "#{self.class.name}.#{_id}"
   end
 end
