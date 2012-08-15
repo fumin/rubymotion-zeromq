@@ -10,9 +10,6 @@ module Majordomo
       @poller = ZMQ::Poller.new
       connect_to_broker
     end
-    def dealloc
-      zmq_ctx_destroy @ctx
-    end
     def streamed_recv reply
       # reply ~ [[200, "Content-Length", "300", "Content-Type", "image/png", ...], 
       #          body[0], body[1], ...]
@@ -32,12 +29,13 @@ module Majordomo
         if UIApplication.sharedApplication.delegate.should_kill_workers
           @poller.delete @worker
           @worker.close if @worker
+          zmq_ctx_destroy @ctx
           return
         end
         @poller.poll @heartbeat
         if @poller.readables.size == 1
           msg = @poller.readables[0].recvmsgs
-#puts "I: received message #{msg}"
+puts "I: received message #{msg}"
           @liveness = HEARTBEAT_LIVENESS
           return unless msg.size >= 3 && msg[0] == "" && msg[1] == W_WORKER
           command = msg[2]

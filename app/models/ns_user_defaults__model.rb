@@ -32,8 +32,9 @@ class NSUserDefaultsModel
   end
 
   def self.find _id
-    NSKeyedUnarchiver.unarchiveObjectWithData(
-      NSUserDefaults.standardUserDefaults[Route.new.full_id(_id)])
+    archived_obj = NSUserDefaults.standardUserDefaults[Route.new.full_id(_id)]
+    return unless archived_obj
+    NSKeyedUnarchiver.unarchiveObjectWithData(archived_obj)
   end
 
   def save

@@ -1,11 +1,11 @@
 class AppDelegate
-  attr_accessor :should_kill_workers
+  attr_accessor :should_kill_workers, :window
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     application.setStatusBarHidden(true, withAnimation:UIStatusBarAnimationFade)
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.rootViewController = UINavigationController.alloc.
-                                   initWithRootViewController(TestViewController.alloc.init)
-    #@window.rootViewController = MainController.alloc.initWithNibName(nil, bundle: nil)
+    #@window.rootViewController = UINavigationController.alloc.
+    #                               initWithRootViewController(TestViewController.alloc.init)
+    @window.rootViewController = MainController.alloc.initWithNibName(nil, bundle: nil)
 
     # this must be after setting rootViewController, otherwise CRASH
     @window.makeKeyAndVisible
@@ -15,8 +15,13 @@ class AppDelegate
     true
   end
   def applicationDidBecomeActive application
+    route = Route.find('me')
+    if route
+      @window.rootViewController.username_text_field.text = route.username
+      @window.rootViewController.password_text_field.text = route.password
+    end
     if @should_kill_workers
-      @window.rootViewController.viewControllers[0].serverPowerSwitch
+      @window.rootViewController.power_switch_pressed
     end
   end
   def applicationWillResignActive application
@@ -28,16 +33,13 @@ class AppDelegate
               end)
   end
 
-  def dispatch_workers
+  def dispatch_workers username, password
+    @current_service = get_service username, password
     queue = Dispatch::Queue.concurrent(priority=:default)
-    queue.async do
-      @current_service = get_service "cardinalblue", "Studio701"
-      # @current_service = get_service "fumin", "0000"
-puts "@current_service = #{@current_service}"
-      WORKERS.times do |i|
-        queue.async{ dispatch_majordomo_worker @current_service }
-      end
-    end
+    WORKERS.times do |i|
+      queue.async{ dispatch_majordomo_worker @current_service }
+    end if @current_service && @current_service != WRONG_USERNAME_OR_PASSWORD
+    @current_service
   end
 
   def get_service user_name, password
@@ -47,8 +49,13 @@ puts "@current_service = #{@current_service}"
     theRequest = NSURLRequest.requestWithURL NSURL.URLWithString(
                    "http://#{host}/route_login?user_name=#{user_name}&password=#{password}")
     requestError = Pointer.new(:object); urlResponse = Pointer.new(:object)
-    (NSURLConnection.sendSynchronousRequest(theRequest,
-      returningResponse:urlResponse, error:requestError) || "").to_str
+    data = (NSURLConnection.sendSynchronousRequest(theRequest,
+             returningResponse:urlResponse, error:requestError) || "").to_str
+puts "route_login data = #{data} #{Time.now}"
+    return unless urlResponse[0].statusCode == 200
+    return unless /^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/ =~ data or
+                  WRONG_USERNAME_OR_PASSWORD == data
+    data
   end
 
   def dispatch_majordomo_worker service
@@ -56,8 +63,15 @@ puts "@current_service = #{@current_service}"
     reply = nil
     loop do
       request = worker.streamed_recv reply
-puts "!!! WORKER DYING..." if @should_kill_workers
-      return if @should_kill_workers
+      if @should_kill_workers
+puts "!!! WORKER DYING..."
+        Dispatch::Queue.main.async do
+          @window.rootViewController.msg_area.text = ""
+          @window.rootViewController.power_switch.setTitle('go', forState:UIControlStateNormal)
+          @window.rootViewController.power_switch.enabled = true
+        end
+        return
+      end
       code, headers, body = Cnatra.new.handle_request(request)
       reply = [[code].concat(headers)].concat( BinData.chunk(body, 200 * 1000) )
               # split into chunks of 200kb
@@ -65,4 +79,5 @@ puts "[DEBUG] in loop: reply.size = #{reply.size}"
     end
   end
   WORKERS = 2
+  WRONG_USERNAME_OR_PASSWORD = "wrong username or password"
 end

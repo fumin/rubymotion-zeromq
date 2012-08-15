@@ -1,6 +1,6 @@
 class Route < NSUserDefaultsModel
-  PROPERTIES = [:current_service_hash, :password, :user_name]
-  MANDATORY_PARAMS = [:password, :user_name]
+  PROPERTIES = [:current_service_hash, :password, :username]
+  MANDATORY_PARAMS = [:password, :username]
 
   # rubymotion is lame to have us repeat the below boilerplate code
   PROPERTIES.each { |prop|
