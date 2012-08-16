@@ -6,6 +6,7 @@ user sitting in front of a browser <---> web server <---> zeromq broker <---> iO
 * iOS app https://github.com/fumin/rubymotion-zeromq
 * zeromq majordomo broker https://github.com/fumin/mdbroker
 * web server https://github.com/fumin/world
+
 ## Available routes
 * `/` redirects to `photo_album`
 * `/photo_album` displays thumbnails of photos in device
