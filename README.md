@@ -13,6 +13,7 @@ user sitting in front of a browser <---> web server <---> zeromq broker <---> iO
 * `/number_of_images` returns the number of photos
 * `/images/:id` returns the full resolution image of photo number `id`
 * `/thumbnails/:id` returns the thumbnail of photo number `id`
+
 ## Differences from the official majordomo protocol
 This protocol has been slightly modified to enable streaming.
 The interaction between a client and a worker in the official protocol is
