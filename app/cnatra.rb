@@ -32,7 +32,7 @@ class Cnatra
                       when :full
                         repre = result.defaultRepresentation
                         UIImage.alloc.initWithCGImage(repre.fullResolutionImage,
-                                                 scale:1.0, orientation:repre.orientation)
+                          scale:1.0, orientation:repre.orientation)
                       else
                         UIImage.alloc.initWithCGImage(result.thumbnail)
                       end
@@ -52,7 +52,6 @@ class Cnatra
     # will resume when the above blocks finish and set the condition to 0
     albumReadLock.lockWhenCondition 0
     albumReadLock.unlock
-puts "DEBUGGGGGGGGGGGGGGGG @photos.size = #{@photos.size}"
     @photos
   end
 

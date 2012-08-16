@@ -10,9 +10,6 @@ module Majordomo
       @poller = ZMQ::Poller.new
       connect_to_broker
     end
-    def dealloc
-      zmq_ctx_destroy @ctx
-    end
     def streamed_recv reply
       # reply ~ [[200, "Content-Length", "300", "Content-Type", "image/png", ...], 
       #          body[0], body[1], ...]
@@ -26,9 +23,15 @@ module Majordomo
       recv [reply[-1]]
     end
     def recv reply
-      send_to_broker(W_REPLY, nil, reply.unshift("").unshift(@reply_to)) if @reply_to && reply
+      send_to_broker(W_REPLY, nil,
+                     reply.unshift("").unshift(@reply_to)) if @reply_to && reply
       while true
-        return if UIApplication.sharedApplication.delegate.should_kill_workers
+        if UIApplication.sharedApplication.delegate.should_kill_workers
+          @poller.delete @worker
+          @worker.close if @worker
+          zmq_ctx_destroy @ctx
+          return
+        end
         @poller.poll @heartbeat
         if @poller.readables.size == 1
           msg = @poller.readables[0].recvmsgs
@@ -48,16 +51,13 @@ puts "E: invalid input message"
           end
         else
           @liveness -= 1
-#puts "[DEBUG] @liveness - 1, @liveness = #{@liveness}, #{Time.now.strftime("%T")}"
           if @liveness == 0
 puts "W: disconnected from broker - retrying..."
             sleep @reconnect.to_f / 1000
             connect_to_broker
           end
         end
-#puts "[DEBUG] Time.now = #{Time.now.strftime("%T")}, @heartbeat_at = #{@heartbeat_at}"
         if Time.now.tv_sec * 1000 > @heartbeat_at
-#puts "[INFO] send_to_broker W_HEARTBEAT ^^ #{Time.now.strftime("%T")}"
           send_to_broker W_HEARTBEAT, nil, []
           @heartbeat_at = Time.now.tv_sec * 1000 + @heartbeat
         end
