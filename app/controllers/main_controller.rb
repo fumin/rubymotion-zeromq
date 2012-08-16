@@ -23,41 +23,28 @@ class MainController < UIViewController
 
     @username_text_field = UITextField.alloc.initWithFrame( 
                              [[0,0], [view_width - 50, 45]])
-    @username_text_field.delegate = self
-    @username_text_field.font = UIFont.systemFontOfSize(32)
-    @username_text_field.placeholder = "your email"
+    @username_text_field.placeholder = "your name"
     @username_text_field.keyboardType = UIKeyboardTypeEmailAddress
     @username_text_field.returnKeyType = UIReturnKeyNext
-    @username_text_field.textAlignment = UITextAlignmentCenter
-    @username_text_field.autocapitalizationType = UITextAutocapitalizationTypeNone
-    @username_text_field.borderStyle = UITextBorderStyleRoundedRect
     @username_text_field.center = CGPointMake(view_width / 2, view_height / 8 * 3)
-    self.view.addSubview @username_text_field
+    set_text_field @username_text_field
 
     @password_text_field = UITextField.alloc.initWithFrame(
                              [[0,0], [view_width - 50, 45]])
-    @password_text_field.delegate = self
     @password_text_field.secureTextEntry = true
-    @password_text_field.font = UIFont.systemFontOfSize(32)
     @password_text_field.placeholder = "your password"
     @password_text_field.returnKeyType = UIReturnKeyGo
-    @password_text_field.textAlignment = UITextAlignmentCenter
-    @password_text_field.autocapitalizationType = UITextAutocapitalizationTypeNone
-    @password_text_field.borderStyle = UITextBorderStyleRoundedRect
     @password_text_field.center = CGPointMake(view_width / 2, view_height / 8 * 4)
-    self.view.addSubview @password_text_field
+    set_text_field @password_text_field
 
     @power_switch = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    @power_switch.setTitle('go', forState:UIControlStateNormal)
-    @power_switch.titleLabel.font = UIFont.systemFontOfSize(32)
+    power_switch_go
     @power_switch.sizeToFit
     button_frame = @power_switch.frame
     button_frame.size = [view_width - 50, button_frame.size.height]
     @power_switch.frame = button_frame
     @power_switch.center = CGPointMake(view_width / 2,
                                        @password_text_field.center.y + 72)
-    @power_switch.setBackgroundImage(UIImage.imageNamed("grey.jpeg"),
-                                     forState:UIControlStateDisabled)
     self.view.addSubview @power_switch
     @power_switch.addTarget(self, action:'power_switch_pressed',
                             forControlEvents:UIControlEventTouchUpInside)
@@ -79,23 +66,27 @@ class MainController < UIViewController
       @msg_area.text = "connecting..."
       @power_switch.setTitle('go', forState:UIControlStateDisabled)
       @power_switch.enabled = false
+      UIView.animateWithDuration(1, animations:lambda{@power_switch.alpha = 0.3})
       Dispatch::Queue.concurrent(priority=:default).async do
         resp = app_delegate.dispatch_workers username, password
         if resp
           if resp == 'wrong username or password'
             Dispatch::Queue.main.async do
-              @msg_area.text = resp
+              @msg_area.text =
+"#{resp}:(\n\nDon't have an iServe account?\nSign up at http://iphone.nandalu.idv.tw"
               @power_switch.setTitle('go', forState:UIControlStateNormal)
-              @power_switch.enabled = true
             end
           else
             app_delegate.should_kill_workers = false
             Dispatch::Queue.main.async do
               @msg_area.text =
-                "Your personal site\nhttp://iphone.nandalu.idv.tw/#{username}\nis ready!"
-              @power_switch.setTitle('stop', forState:UIControlStateNormal)
-              @power_switch.enabled = true
+                "Service online!\nExplore this #{UIDevice.currentDevice.model} at\nhttp://iphone.nandalu.idv.tw/#{username}"
+              power_switch_stop
             end
+          end
+          Dispatch::Queue.main.async do
+            UIView.animateWithDuration(1, animations:lambda{@power_switch.alpha = 1})
+            @power_switch.enabled = true
           end
         end
       end
@@ -104,6 +95,7 @@ class MainController < UIViewController
       @power_switch.setTitle('stop', forState:UIControlStateDisabled)
       @power_switch.enabled = false
       @msg_area.text = "shutting down..."
+      UIView.animateWithDuration(1, animations:lambda{@power_switch.alpha = 0.3})
     end
   end
 
@@ -113,6 +105,7 @@ class MainController < UIViewController
       @password_text_field.becomeFirstResponder
       false
     when @password_text_field
+      @password_text_field.resignFirstResponder
       power_switch_pressed
       false
     else
@@ -125,7 +118,42 @@ class MainController < UIViewController
     @password_text_field.resignFirstResponder
   end
 
+  def power_switch_go
+    @power_switch.contentEdgeInsets = UIEdgeInsetsMake(-20, 0, 0, 0)
+    @power_switch.titleLabel.font = UIFont.fontWithName("MarkerFelt-Wide", size: 48)
+    @power_switch.setTitleColor(our_green, forState:UIControlStateNormal)
+    @power_switch.setTitle('go', forState:UIControlStateNormal)
+    @power_switch.enabled = true
+  end
+
+  def power_switch_stop
+    @power_switch.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+    @power_switch.setTitle('stop', forState:UIControlStateNormal)
+    @power_switch.titleLabel.font = UIFont.fontWithName("MarkerFelt-Thin", size: 24)
+    @power_switch.setTitleColor(UIColor.redColor, forState:UIControlStateNormal)
+  end
+
+  def set_text_field text_field
+    text_field.delegate = self
+    text_field.font = UIFont.systemFontOfSize(32)
+    text_field.placeholder = "your password"
+    text_field.textAlignment = UITextAlignmentCenter
+    text_field.autocapitalizationType = UITextAutocapitalizationTypeNone
+    text_field.borderStyle = UITextBorderStyleRoundedRect
+    self.view.addSubview text_field
+  end
+
   def app_delegate
     UIApplication.sharedApplication.delegate
+  end
+
+  def our_green
+    to_color('225533')
+  end
+
+  def to_color s
+    UIColor.colorWithRed(s[0..1].hex / 255.0,
+                         green:s[2..3].hex / 255.0,
+                         blue:s[4..5].hex / 255.0, alpha:1)
   end
 end

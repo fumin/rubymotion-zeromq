@@ -66,9 +66,10 @@ puts "route_login data = #{data} #{Time.now}"
       if @should_kill_workers
 puts "!!! WORKER DYING..."
         Dispatch::Queue.main.async do
-          @window.rootViewController.msg_area.text = ""
-          @window.rootViewController.power_switch.setTitle('go', forState:UIControlStateNormal)
-          @window.rootViewController.power_switch.enabled = true
+          main_controller.msg_area.text = ""
+          UIView.animateWithDuration(1,
+            animations:lambda{main_controller.power_switch.alpha = 1})
+          main_controller.power_switch_go
         end
         return
       end
@@ -78,6 +79,11 @@ puts "!!! WORKER DYING..."
 puts "[DEBUG] in loop: reply.size = #{reply.size}"
     end
   end
+
+  def main_controller
+    @window.rootViewController
+  end
+
   WORKERS = 2
   WRONG_USERNAME_OR_PASSWORD = "wrong username or password"
 end
