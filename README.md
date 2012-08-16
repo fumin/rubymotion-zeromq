@@ -39,5 +39,10 @@ this problem by streaming the large payload of the reply:
 ```
   
 Note that trailing 4 byte 'more' string is the signal for more coming bytes.
+## Dependencies
+* rubymotion http://www.rubymotion.com/
+* zeromq 3.2.0 http://www.zeromq.org/
+* zlib 1.2.7 http://zlib.net/
+
 ## References
 * official zeromq majordomo documentation http://rfc.zeromq.org/spec:7
