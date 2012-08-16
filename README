@@ -1,4 +1,0 @@
-TODO:
-* addTarget:action:forControlEvents for power_switch button
-* KVO for text fields
-* pressing 'kill' button crashes on device
