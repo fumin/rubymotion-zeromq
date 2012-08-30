@@ -1,0 +1,14 @@
+========================================================================
+
+version 0.0.0
+
+IMPORTANT:
+    - please sign up for an account in http://afternoon-fog-1338.herokuapp.com/ for free :)
+
+WHAT'S NEW:
+    - ability to log in and browse photos with our browsers in another device
+      For example, after logging in with the username 'cardinalblue'
+      and password 'Studio701', we can reach our iPhone at
+      http://afternoon-fog-1338.herokuapp.com/cardinalblue
+
+========================================================================

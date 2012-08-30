@@ -136,9 +136,10 @@ class MainController < UIViewController
   def set_text_field text_field
     text_field.delegate = self
     text_field.font = UIFont.systemFontOfSize(32)
-    text_field.placeholder = "your password"
     text_field.textAlignment = UITextAlignmentCenter
     text_field.autocapitalizationType = UITextAutocapitalizationTypeNone
+    text_field.autocorrectionType = UITextAutocorrectionTypeNo
+    text_field.spellCheckingType = UITextSpellCheckingTypeNo
     text_field.borderStyle = UITextBorderStyleRoundedRect
     self.view.addSubview text_field
   end

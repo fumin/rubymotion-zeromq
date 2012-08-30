@@ -5,3 +5,6 @@ resources/*.momd
 resources/*.storyboardc
 vendor/*/build-iPhoneSimulator/*
 vendor/*/build-iPhoneOS/*
+
+.DS_Store
+.dat*
